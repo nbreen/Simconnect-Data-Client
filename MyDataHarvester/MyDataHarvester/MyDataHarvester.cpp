@@ -36,10 +36,15 @@ void CALLBACK MyDispatchProc(SIMCONNECT_RECV* pData, DWORD cbData, void* pContex
                     std::cout << "Received start event\n";
                     std::string * disptext = new std::string("Beggining log");
                     std::string disp = *disptext;
-                    dataOut = fopen("data.txt", "w");
+                    fopen_s(&dataOut, "data.txt", "w");
 
                     if (!dataOut) {
                         std::cout << "Error opening out file\n";
+                    }
+
+                    hr = SimConnect_RequestDataOnSimObject(simSession, USER_OBJECT_DATA, USER_OBJECT_DEF, SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD_SECOND);
+                    if (hr != S_OK) {
+                        std::cout << "An error occured starting data request\n";
                     }
 
 
@@ -66,6 +71,13 @@ void CALLBACK MyDispatchProc(SIMCONNECT_RECV* pData, DWORD cbData, void* pContex
                     std::cout << "Received stop event\n";
                     std::string* disptext = new std::string("Stopping log");
                     std::string disp = *disptext;
+
+                    hr = SimConnect_RequestDataOnSimObject(simSession, USER_OBJECT_DATA, USER_OBJECT_DEF, SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD_NEVER);
+                    if (hr != S_OK) {
+                        std::cout << "An error occured ending data request\n";
+                    }
+
+
                     hr = SimConnect_Text(simSession, SIMCONNECT_TEXT_TYPE_PRINT_WHITE, 5, DISPLAYING_TEXT, sizeof(disp), (void*) disptext);
                     if (hr != S_OK) {
                         std::cout << "An error occured displaying text\n";
@@ -93,6 +105,23 @@ void CALLBACK MyDispatchProc(SIMCONNECT_RECV* pData, DWORD cbData, void* pContex
             break;
         }
 
+        case SIMCONNECT_RECV_ID_SIMOBJECT_DATA: {
+            SIMCONNECT_RECV_SIMOBJECT_DATA* simObjectData = (SIMCONNECT_RECV_SIMOBJECT_DATA*)pData;
+            std::cout << "Received obj data\n";
+
+            switch (simObjectData->dwRequestID) {
+                case USER_OBJECT_DATA: {
+                    DWORD dwObjectID = simObjectData->dwObjectID;
+
+                    ObjectData* userData = (ObjectData*)&simObjectData->dwData;
+
+                    std::cout << "Data timestamp: " << userData->dTime << "\n";
+                    break;
+                }
+            }
+            break;
+        }
+
         case SIMCONNECT_RECV_ID_QUIT: {
             hr = SimConnect_Close(simSession);
             if (hr != S_OK) {
@@ -104,12 +133,11 @@ void CALLBACK MyDispatchProc(SIMCONNECT_RECV* pData, DWORD cbData, void* pContex
                 dataOut = NULL;
             }
 
-            CloseHandle(simSession);
-            exit(1);
+            exit(0);
         }
 
         default: {
-            printf("\nReceived: %d", pData->dwID);
+            printf("Received: %d\n", pData->dwID);
             break;
         }
     }
@@ -122,6 +150,14 @@ void initLogger() {
 
     if (hr != S_OK) {
         std::cout << "An error occured adding origin start to menu\n";
+    }
+
+    for (unsigned int i = 0; i < ARRAYSIZE(g_aVariables); ++i) {
+        const PropertyDefinition& prop = g_aVariables[i];
+        hr = SimConnect_AddToDataDefinition(simSession, USER_OBJECT_DEF, prop.pszName, prop.pszUnits, prop.eDataType);
+        if (hr != S_OK) {
+            std::cout << "Error with data defenition\n";
+        }
     }
 
 }
