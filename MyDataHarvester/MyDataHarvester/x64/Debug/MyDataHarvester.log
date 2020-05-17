@@ -1,0 +1,9 @@
+﻿  MyDataHarvester.cpp
+SimConnect.lib(SimConnectClient.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in MyDataHarvester.obj
+SimConnect.lib(SimConnectClient.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in MyDataHarvester.obj
+SimConnect.lib(commClient.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in MyDataHarvester.obj
+SimConnect.lib(commClient.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in MyDataHarvester.obj
+SimConnect.lib(client.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in MyDataHarvester.obj
+SimConnect.lib(client.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in MyDataHarvester.obj
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\x64\Debug\MyDataHarvester.exe : fatal error LNK1319: 6 mismatches detected

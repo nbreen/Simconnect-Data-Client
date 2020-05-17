@@ -1,0 +1,3 @@
+﻿MyDataHarvester.obj : error LNK2019: unresolved external symbol _SimConnect_Open@24 referenced in function "void __cdecl ConnectToSim(void)" (?ConnectToSim@@YAXXZ)
+..\Lib\SimConnect.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Debug\MyDataHarvester.exe : fatal error LNK1120: 1 unresolved externals
