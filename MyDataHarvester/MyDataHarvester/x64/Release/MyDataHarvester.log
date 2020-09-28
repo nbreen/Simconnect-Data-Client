@@ -1,10 +1,54 @@
 ﻿  MyDataHarvester.cpp
-  Generating code
-  3 of 86 functions ( 3.5%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-SimConnect.lib(client.obj) : warning LNK4099: PDB 'sim.pdb' was not found with 'SimConnect.lib(client.obj)' or at 'C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\x64\Release\sim.pdb'; linking object as if no debug info
-SimConnect.lib(commClient.obj) : warning LNK4099: PDB 'sim.pdb' was not found with 'SimConnect.lib(commClient.obj)' or at 'C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\x64\Release\sim.pdb'; linking object as if no debug info
-SimConnect.lib(SimConnectClient.obj) : warning LNK4099: PDB 'sim.pdb' was not found with 'SimConnect.lib(SimConnectClient.obj)' or at 'C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\x64\Release\sim.pdb'; linking object as if no debug info
-  MyDataHarvester.vcxproj -> C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\x64\Release\MyDataHarvester.exe
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(54,34): error C3646: 'eDataType': unknown override specifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(54,34): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(59,61): error C2065: 'SIMCONNECT_DATATYPE_STRING256': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(60,61): error C2065: 'SIMCONNECT_DATATYPE_FLOAT64': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(61,61): error C2065: 'SIMCONNECT_DATATYPE_FLOAT64': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(62,61): error C2065: 'SIMCONNECT_DATATYPE_INT32': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(63,61): error C2065: 'SIMCONNECT_DATATYPE_INT32': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(64,61): error C2065: 'SIMCONNECT_DATATYPE_INT32': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(65,61): error C2065: 'SIMCONNECT_DATATYPE_INT32': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(66,61): error C2065: 'SIMCONNECT_DATATYPE_INT32': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(67,61): error C2065: 'SIMCONNECT_DATATYPE_INT32': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(68,61): error C2065: 'SIMCONNECT_DATATYPE_FLOAT64': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(69,61): error C2065: 'SIMCONNECT_DATATYPE_FLOAT64': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(70,61): error C2065: 'SIMCONNECT_DATATYPE_FLOAT64': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(71,61): error C2065: 'SIMCONNECT_DATATYPE_FLOAT64': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(72,61): error C2065: 'SIMCONNECT_DATATYPE_FLOAT64': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(73,61): error C2065: 'SIMCONNECT_DATATYPE_FLOAT64': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(74,61): error C2065: 'SIMCONNECT_DATATYPE_FLOAT64': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(75,61): error C2065: 'SIMCONNECT_DATATYPE_FLOAT64': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(76,61): error C2065: 'SIMCONNECT_DATATYPE_FLOAT64': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(77,61): error C2065: 'SIMCONNECT_DATATYPE_FLOAT64': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(78,61): error C2065: 'SIMCONNECT_DATATYPE_FLOAT64': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(79,61): error C2065: 'SIMCONNECT_DATATYPE_FLOAT64': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(80,61): error C2065: 'SIMCONNECT_DATATYPE_FLOAT64': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(81,61): error C2065: 'SIMCONNECT_DATATYPE_FLOAT64': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(82,61): error C2065: 'SIMCONNECT_DATATYPE_FLOAT64': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(83,61): error C2065: 'SIMCONNECT_DATATYPE_FLOAT64': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(84,61): error C2065: 'SIMCONNECT_DATATYPE_FLOAT64': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(85,61): error C2065: 'SIMCONNECT_DATATYPE_FLOAT64': undeclared identifier
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(59,61): error C2078: too many initializers
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\SimConnect.h(18,9): error C2371: 'DWORD': redefinition; different basic types
+E:\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(156): message : see declaration of 'DWORD'
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\SimConnect.h(18,15): error C2146: syntax error: missing ';' before identifier 'SIMCONNECT_OBJECT_ID'
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\SimConnect.h(18,35): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\SimConnect.h(1434,87): error C2061: syntax error: identifier 'SIMCONNECT_OBJECT_ID'
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\SimConnect.h(1443,168): error C2061: syntax error: identifier 'SIMCONNECT_OBJECT_ID'
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\SimConnect.h(1445,126): error C2061: syntax error: identifier 'SIMCONNECT_OBJECT_ID'
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\SimConnect.h(1467,88): error C2061: syntax error: identifier 'SIMCONNECT_OBJECT_ID'
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\SimConnect.h(1472,84): error C2061: syntax error: identifier 'SIMCONNECT_OBJECT_ID'
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\SimConnect.h(1473,82): error C2061: syntax error: identifier 'SIMCONNECT_OBJECT_ID'
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\SimConnect.h(1474,91): error C2061: syntax error: identifier 'SIMCONNECT_OBJECT_ID'
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\SimConnect.h(1530,84): error C2061: syntax error: identifier 'SIMCONNECT_OBJECT_ID'
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\SimConnect.h(1538,132): error C2061: syntax error: identifier 'SIMCONNECT_OBJECT_ID'
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\SimConnect.h(1568,86): error C2061: syntax error: identifier 'SIMCONNECT_OBJECT_ID'
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\SimConnect.h(1616,134): error C2061: syntax error: identifier 'SIMCONNECT_OBJECT_ID'
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\SimConnect.h(1622,89): error C2061: syntax error: identifier 'SIMCONNECT_OBJECT_ID'
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\SimConnect.h(1633,92): error C2061: syntax error: identifier 'SIMCONNECT_OBJECT_ID'
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\MyDataHarvester\MyDataHarvester.cpp(47,158): error C2660: 'SimConnect_RequestDataOnSimObject': function does not take 5 arguments
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\SimConnect.h(1443,15): message : see declaration of 'SimConnect_RequestDataOnSimObject'
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\MyDataHarvester\MyDataHarvester.cpp(77,157): error C2660: 'SimConnect_RequestDataOnSimObject': function does not take 5 arguments
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\SimConnect.h(1443,15): message : see declaration of 'SimConnect_RequestDataOnSimObject'
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\MyDataHarvester\MyDataHarvester.cpp(159,108): error C2039: 'eDataType': is not a member of 'PropertyDefinition'
+C:\Users\Naveen Breen\Documents\GitHub\Simconnect\MyDataHarvester\Include\MyDataHarvester.h(50): message : see declaration of 'PropertyDefinition'

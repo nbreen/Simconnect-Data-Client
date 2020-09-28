@@ -1,4 +1,5 @@
 #pragma once
+#include <Windows.h>
 enum EVENT_ID {
     START_CLIENT_APPLICATION,
     STOP_CLIENT_APPLICATION,
@@ -83,3 +84,22 @@ const PropertyDefinition g_aVariables[] =
     { "AMBIENT WIND Y",             "Meters per second",    SIMCONNECT_DATATYPE_FLOAT64     },
     { "AMBIENT WIND Z",             "Meters per second",    SIMCONNECT_DATATYPE_FLOAT64     },
 };
+
+/*const PropertyDefinition g_aVariables[] =
+{
+    { "TITLE",                      NULL,                   SIMCONNECT_DATATYPE_STRING256   },
+    { "SIM ON GROUND", NULL, SIMCONNECT_DATATYPE_STRING32},
+    { "PLANE ALTITUDE",             "Feet",                 SIMCONNECT_DATATYPE_FLOAT64     },
+    { "PLANE HEADING DEGREES TRUE", "Degrees",              SIMCONNECT_DATATYPE_FLOAT64     },
+    { "AIRSPEED TRUE" , "Knots", SIMCONNECT_DATATYPE_FLOAT64 },
+    { "VERTICAL SPEED", "Feet per second", SIMCONNECT_DATATYPE_FLOAT64 },
+    { "GPS ETA", "Seconds", SIMCONNECT_DATATYPE_FLOAT64},
+
+
+};*/
+
+class MyDataHarvester {
+public:
+    void ConnectToSim();
+    MyDataHarvester();
+}

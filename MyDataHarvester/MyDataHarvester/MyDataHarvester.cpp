@@ -5,9 +5,11 @@
 #include <Windows.h>
 #include <tchar.h>
 #include <strsafe.h>
+#include <math.h>
 
-#include "SimConnect.h"
 #include "MyDataHarvester.h"
+#include "SimConnect.h"
+
 
 HANDLE simSession;
 FILE* dataOut;
@@ -115,7 +117,7 @@ void CALLBACK MyDispatchProc(SIMCONNECT_RECV* pData, DWORD cbData, void* pContex
 
                     ObjectData* userData = (ObjectData*)&simObjectData->dwData;
 
-                    std::cout << "Data timestamp: " << userData->dTime << "\n";
+                    std::cout << "Data timestamp: " << static_cast<int>(userData->dTime / 3600) + 00 << ":" << static_cast<int>(userData->dTime / 60  - 60) + 00 << ":" << static_cast<int>(fmod(userData->dTime, 60)) + 00 << "\n";
                     break;
                 }
             }
@@ -174,7 +176,7 @@ void ConnectToSim() {
             connected = true;
             break;
         }
-        std::cout << "Connection Attempt" << i + 1 << "\n";
+        std::cout << "Connection Attempt " << i + 1 << "\n";
         Sleep(30);
     }
 
@@ -190,6 +192,7 @@ void ConnectToSim() {
 
     } else {
         std::cout << "Connection timeout\n";
+        exit(0);
     }
 }
 
