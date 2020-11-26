@@ -1,14 +1,7 @@
 // MyDataHarvester.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-#include <iostream>
-#include <Windows.h>
-#include <tchar.h>
-#include <strsafe.h>
-#include <math.h>
-
-#include "MyDataHarvester.h"
-#include "SimConnect.h"
+#include <MyDataHarvester.h>
 
 
 HANDLE simSession;
@@ -196,9 +189,9 @@ void ConnectToSim() {
     }
 }
 
-int main() {
+/*int main() {
     ConnectToSim();
-}
+}*/
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu

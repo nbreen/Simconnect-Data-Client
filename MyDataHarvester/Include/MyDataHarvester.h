@@ -1,5 +1,12 @@
 #pragma once
 #include <Windows.h>
+#include <iostream>
+#include <Windows.h>
+#include <tchar.h>
+#include <strsafe.h>
+#include <math.h>
+#include <SimConnect.h>
+
 enum EVENT_ID {
     START_CLIENT_APPLICATION,
     STOP_CLIENT_APPLICATION,
@@ -102,4 +109,4 @@ class MyDataHarvester {
 public:
     void ConnectToSim();
     MyDataHarvester();
-}
+};

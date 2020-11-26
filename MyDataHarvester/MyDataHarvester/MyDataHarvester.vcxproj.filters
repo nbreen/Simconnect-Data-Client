@@ -18,9 +18,15 @@
     <ClCompile Include="MyDataHarvester.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\..\..\Program Files\Lockheed Martin\Prepar3D v4 SDK 4.5.14.34698\inc\SimConnect\SimConnect.h">
+    <ClInclude Include="..\Include\MyDataHarvester.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\SimConnect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
