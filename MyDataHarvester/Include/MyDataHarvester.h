@@ -1,3 +1,7 @@
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+
 #pragma once
 #include <Windows.h>
 #include <iostream>
@@ -6,6 +10,14 @@
 #include <strsafe.h>
 #include <math.h>
 #include <SimConnect.h>
+#include <WinSock2.h>
+#include <WS2tcpip.h>
+#include <stdio.h>
+
+#pragma comment(lib, "Ws2_32.lib")
+#pragma comment(lib,"ws2_32")
+
+#define BUFF_LEN 512
 
 enum EVENT_ID {
     START_CLIENT_APPLICATION,
@@ -105,8 +117,5 @@ const PropertyDefinition g_aVariables[] =
 
 };*/
 
-class MyDataHarvester {
-public:
-    void ConnectToSim();
-    MyDataHarvester();
-};
+bool ConnectToSim(SOCKET);
+DWORD WINAPI simConnectDispatch(LPVOID);

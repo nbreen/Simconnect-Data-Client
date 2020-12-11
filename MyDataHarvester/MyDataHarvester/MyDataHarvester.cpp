@@ -6,6 +6,64 @@
 
 HANDLE simSession;
 FILE* dataOut;
+SOCKET clientSocket;
+
+void logData(ObjectData* toLog, FILE* file) {
+    fprintf(file,"%s", toLog->szTitle);
+    fprintf(file, " ");
+    fprintf(file, "%f", toLog->dAbsoluteTime);
+    fprintf(file, " ");
+    fprintf(file, "%f", toLog->dTime);
+    fprintf(file, " ");
+    fprintf(file, "%d", toLog->uDayOfTheYear);
+    fprintf(file, " ");
+    fprintf(file, "%d", toLog->uYear);
+    fprintf(file, " ");
+    fprintf(file, "%d", toLog->uMonthOfTheYear);
+    fprintf(file, " ");
+    fprintf(file, "%d", toLog->uDayOfTheMonth);
+    fprintf(file, " ");
+    fprintf(file, "%d", toLog->uDayOfTheWeek);
+    fprintf(file, " ");
+    fprintf(file, "%d", toLog->uTimeZoneOffset);
+    fprintf(file, " ");
+    fprintf(file, "%f", toLog->dSimTime);
+    fprintf(file, " ");
+    fprintf(file, "%f", toLog->dLatitude);
+    fprintf(file, " ");
+    fprintf(file, "%f", toLog->dLongitude);
+    fprintf(file, " ");
+    fprintf(file, "%f", toLog->dAltitude);
+    fprintf(file, " ");
+    fprintf(file, "%f", toLog->dPitch);
+    fprintf(file, " ");
+    fprintf(file, "%f", toLog->dBank);
+    fprintf(file, " ");
+    fprintf(file, "%f", toLog->dHeading);
+    fprintf(file, " ");
+    fprintf(file, "%f", toLog->dVelocityX);
+    fprintf(file, " ");
+    fprintf(file, "%f", toLog->dVelocityY);
+    fprintf(file, " ");
+    fprintf(file, "%f", toLog->dVelocityZ);
+    fprintf(file, " ");
+    fprintf(file, "%f", toLog->dTemperature);
+    fprintf(file, " ");
+    fprintf(file, "%f", toLog->dAirPressure);
+    fprintf(file, " ");
+    fprintf(file, "%f", toLog->dAirDensity);
+    fprintf(file, " ");
+    fprintf(file, "%f", toLog->dWindVelocity);
+    fprintf(file, " ");
+    fprintf(file, "%f", toLog->dWindDirection);
+    fprintf(file, " ");
+    fprintf(file, "%f", toLog->dWindX);
+    fprintf(file, " ");
+    fprintf(file, "%f", toLog->dWindY);
+    fprintf(file, " ");
+    fprintf(file, "%f", toLog->dWindZ);
+    fprintf(file, "\n");
+}
 
 void CALLBACK MyDispatchProc(SIMCONNECT_RECV* pData, DWORD cbData, void* pContext) {
     HRESULT hr;
@@ -110,10 +168,22 @@ void CALLBACK MyDispatchProc(SIMCONNECT_RECV* pData, DWORD cbData, void* pContex
 
                     ObjectData* userData = (ObjectData*)&simObjectData->dwData;
 
+                    int hours = static_cast<int>(userData->dTime / 3600);
+                    int minutes = static_cast<int>(userData->dTime / 60);
+                    int seconds = static_cast<int>(fmod(userData->dTime, 60));
+                    char sendbuff[BUFF_LEN];
+
+                    sprintf_s(sendbuff, "Data timestamp: %d:%d:%d\n", hours, minutes, seconds);
+                    int iResult = send(clientSocket, sendbuff, (int)strlen(sendbuff), 0);
+
                     std::cout << "Data timestamp: " << static_cast<int>(userData->dTime / 3600) + 00 << ":" << static_cast<int>(userData->dTime / 60  - 60) + 00 << ":" << static_cast<int>(fmod(userData->dTime, 60)) + 00 << "\n";
+                    std::cout << "Send result to server: " << iResult << "\n";
+                    //logData(userData, dataOut);
+                    
                     break;
                 }
             }
+
             break;
         }
 
@@ -151,13 +221,22 @@ void initLogger() {
         const PropertyDefinition& prop = g_aVariables[i];
         hr = SimConnect_AddToDataDefinition(simSession, USER_OBJECT_DEF, prop.pszName, prop.pszUnits, prop.eDataType);
         if (hr != S_OK) {
-            std::cout << "Error with data defenition\n";
+            std::cout << "Error with data definition\n";
         }
     }
 
 }
 
-void ConnectToSim() {
+DWORD WINAPI simConnectDispatch(LPVOID lpParam) {
+    while (1) {
+        SimConnect_CallDispatch(simSession, MyDispatchProc, NULL);
+        Sleep(1);
+    }
+
+    return 0;
+}
+
+bool ConnectToSim(SOCKET sock) {
     HRESULT hr;
     bool connected = false;
 
@@ -174,18 +253,14 @@ void ConnectToSim() {
     }
 
     if (connected) {
-        std::cout << "P3D connection successful\n";
-
+        std::cout << "P3D connection successful. Initializing logger\n";
         initLogger();
-
-        while (1) {
-            SimConnect_CallDispatch(simSession, MyDispatchProc, NULL);
-            Sleep(1);
-        }
-
+        clientSocket = sock;
+        return true;
+   
     } else {
         std::cout << "Connection timeout\n";
-        exit(0);
+        return false;
     }
 }
 
