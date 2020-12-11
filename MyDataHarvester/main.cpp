@@ -1,18 +1,9 @@
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN
-#endif
 
 #include "MyDataHarvester.h"
-#include <WinSock2.h>
-#include <WS2tcpip.h>
-#include <stdio.h>
-
-#pragma comment(lib, "Ws2_32.lib")
-#pragma comment(lib,"ws2_32")
 
 #define PORT "5000"
-#define BUFF_LEN 512
 
+bool connectedToSim = false;
 
 SOCKET initSocket() {
 	struct addrinfo *result = NULL, 
@@ -67,14 +58,24 @@ SOCKET initSocket() {
 		return clientSocket;
 	}
 }
-
-void initHarvester() {
-	//MyDataHarvester harvester = new MyDataHarvester();
-}
-
 int main() {
-	initHarvester();
 	SOCKET clientSocket = initSocket();
+	HANDLE harvesterHandle;
+	DWORD threadID;
+
+	if (clientSocket == 1) {
+		printf("Unable to create socket\n");
+		return 1;
+	}
+
+	connectedToSim = ConnectToSim(clientSocket);
+
+	if (!connectedToSim) {
+		printf("Unable to connect to sim\n");
+		return 1;
+	}
+
+	harvesterHandle = CreateThread(NULL, 0, simConnectDispatch, NULL, 0, &threadID);
 
 	const char* sendbuf = "Hello world!";
 	char recvbuf[BUFF_LEN];
@@ -88,15 +89,7 @@ int main() {
 		return 1;
 	}
 
-	do {
-		iResult = recv(clientSocket, recvbuf, BUFF_LEN, 0);
-		if (iResult > 0) {
-			printf("Received %d bytes\n", iResult);
-			printf("From server: %s", recvbuf);
-		}
-	} while (iResult > 0);
-
-
+	WaitForSingleObject(harvesterHandle, INFINITE);
 
 	return 0;
 }
