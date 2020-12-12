@@ -2,6 +2,7 @@
 ** server.c -- a stream socket server demo
 */
 
+#include "server.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -35,6 +36,12 @@ void *receiveData(void* clientSocket) {
 	result = send(client, "Hello world from server", sizeof("Hello world from server"), 0);
 
 	printf("Result of send is %d\n", result);
+	printf("Entering receive loop\n");
+
+	while(result > 0) {
+		result = recv(client,recvBuff, BUFF_SIZE -1 ,0);
+		printf("From client: %s\n", recvBuff);
+	}
 }
 
 void sigchld_handler(int s)
