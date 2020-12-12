@@ -21,12 +21,18 @@
     <ClCompile Include="..\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="simconnectData.pb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\MyDataHarvester.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\SimConnect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\simconnectData.pb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

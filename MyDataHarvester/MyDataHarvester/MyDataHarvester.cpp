@@ -2,6 +2,7 @@
 //
 
 #include <MyDataHarvester.h>
+#include "simconnectData.pb.h"
 
 
 HANDLE simSession;
@@ -63,6 +64,54 @@ void logData(ObjectData* toLog, FILE* file) {
     fprintf(file, " ");
     fprintf(file, "%f", toLog->dWindZ);
     fprintf(file, "\n");
+}
+
+DWORD WINAPI createProto(LPVOID lParam) {
+    ObjectData* toConvert = (ObjectData*)lParam;
+
+    simConnect::simData convertedData;
+    std::string toStr(toConvert->szTitle);
+
+    convertedData.set_sztitle(toStr);
+    convertedData.set_dabsolutetime(toConvert->dAbsoluteTime);
+    convertedData.set_dtime(toConvert->dTime);
+    convertedData.set_udayoftheyear(toConvert->uDayOfTheYear);
+    convertedData.set_uyear(toConvert->uYear);
+    convertedData.set_umonthoftheyear(toConvert->uMonthOfTheYear);
+    convertedData.set_udayofthemonth(toConvert->uDayOfTheMonth);
+    convertedData.set_udayoftheweek(toConvert->uDayOfTheWeek);
+    convertedData.set_utimezoneoffset(toConvert->uTimeZoneOffset);
+    convertedData.set_dsimtime(toConvert->dSimTime);
+    convertedData.set_dlatitude(toConvert->dLatitude);
+    convertedData.set_dlongitude(toConvert->dLongitude);
+    convertedData.set_daltitude(toConvert->dAltitude);
+    convertedData.set_dpitch(toConvert->dPitch);
+    convertedData.set_dbank(toConvert->dBank);
+    convertedData.set_dheading(toConvert->dHeading);
+    convertedData.set_dvelocityx(toConvert->dVelocityX);
+    convertedData.set_dvelocityy(toConvert->dVelocityY);
+    convertedData.set_dvelocityz(toConvert->dVelocityZ);
+    convertedData.set_dtemperature(toConvert->dTemperature);
+    convertedData.set_dairpressure(toConvert->dAirPressure);
+    convertedData.set_dairdensity(toConvert->dAirDensity);
+    convertedData.set_dwindvelocity(toConvert->dWindVelocity);
+    convertedData.set_dwinddirection(toConvert->dWindDirection);
+    convertedData.set_dwindx(toConvert->dWindX);
+    convertedData.set_dwindy(toConvert->dWindY);
+    convertedData.set_dwindz(toConvert->dWindZ);
+
+    printf("Size after serializing is %ld\n", convertedData.ByteSizeLong());
+    long pktSize = convertedData.ByteSizeLong();
+    char* pkt = new char[pktSize];
+    google::protobuf::io::ArrayOutputStream aos(pkt, pktSize);
+    google::protobuf::io::CodedOutputStream* coded_pkt = new google::protobuf::io::CodedOutputStream(&aos);
+    coded_pkt->WriteVarint32(convertedData.ByteSizeLong());
+    convertedData.SerializeToCodedStream(coded_pkt);
+
+    int iResult = send(clientSocket, pkt, pktSize, 0);
+    printf("Sent bytes %d\n", iResult);
+
+    return 0;
 }
 
 void CALLBACK MyDispatchProc(SIMCONNECT_RECV* pData, DWORD cbData, void* pContext) {
@@ -172,6 +221,11 @@ void CALLBACK MyDispatchProc(SIMCONNECT_RECV* pData, DWORD cbData, void* pContex
                     int minutes = static_cast<int>(userData->dTime / 60);
                     int seconds = static_cast<int>(fmod(userData->dTime, 60));
                     char sendbuff[BUFF_LEN];
+                    HANDLE protoHandle;
+                    DWORD threadID;
+                    
+
+                    protoHandle = CreateThread(NULL, 0, createProto, (LPVOID)userData, 0, &threadID);
 
                     sprintf_s(sendbuff, "Data timestamp: %d:%d:%d\n", hours, minutes, seconds);
                     int iResult = send(clientSocket, sendbuff, (int)strlen(sendbuff), 0);
