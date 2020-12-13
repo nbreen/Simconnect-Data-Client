@@ -16,6 +16,9 @@
 #include <sys/wait.h>
 #include <signal.h>
 #include <pthread.h>
+#include "simconnectData.pb.h"
+#include "processProtobuff.h"
+
 
 #define PORT "5000"  // the port users will be connecting to
 #define BACKLOG 10	 // how many pending connections queue will hold
@@ -23,25 +26,36 @@
 
 
 void *receiveData(void* clientSocket) {
-	char recvBuff[BUFF_SIZE];
+	char helloBuff[BUFF_SIZE];
 	int result;
 	int *sock = (int *)clientSocket;
 	int client = *sock;
+	char sizeBuff[4];
+	int byteCount = 0;
 
 	printf("Received client socket\n");
 
-	result = recv(client, recvBuff, BUFF_SIZE - 1, 0);
-	printf("From client: %s\n", recvBuff);
+	result = recv(client, helloBuff, BUFF_SIZE - 1, 0);
+	printf("From client: %s\n", helloBuff);
 
 	result = send(client, "Hello world from server", sizeof("Hello world from server"), 0);
 
 	printf("Result of send is %d\n", result);
 	printf("Entering receive loop\n");
 
-	while(result > 0) {
-		result = recv(client,recvBuff, BUFF_SIZE -1 ,0);
-		printf("From client: %s\n", recvBuff);
+	while(1) {
+		result = recv(client, sizeBuff, 4, MSG_PEEK);
+		printf("Result is %d\n", result);
+		if (result == -1) {
+			printf("Error receiving data with byteSize\n");
+		}else if (result == 0) {
+			break;
+		}
+
+		printf("First read byte count is %d\n", byteCount);
+		readMessage(client, readHeader(sizeBuff));
 	}
+	return 0;
 }
 
 void sigchld_handler(int s)
