@@ -9,12 +9,15 @@ google::protobuf::uint32 readHeader(char *buf) {
   return size;
 }
 
-void readMessage(int csock,google::protobuf::uint32 siz) {
+/* Two errors here. In recv using MSG_WAITALL causes the below to block forever. Also
+the socket being passed when using a thread is incorrect */
+
+void readMessage(int csock, google::protobuf::uint32 siz) {
   int bytecount;
   simConnect::simData payload;
   char buffer [siz+4];//size of the payload and hdr
   //Read the entire buffer including the hdr
-  if((bytecount = recv(csock, (void *)buffer, 4+siz, MSG_WAITALL))== -1){
+  if((bytecount = recv(csock, (void *)buffer, 4+siz, 0))== -1){
                 fprintf(stderr, "Error receiving data %d\n", errno);
         }
   std::cout<<"Second read byte count is "<<bytecount<<std::endl;
@@ -33,4 +36,12 @@ void readMessage(int csock,google::protobuf::uint32 siz) {
   coded_input.PopLimit(msgLimit);
   //Print the message
   std::cout<<"Message is "<<payload.DebugString();
+}
+
+void *processingWrapper(void* args) {
+  processingParams_t *threadParams = (processingParams_t*) args;
+  
+  readMessage(threadParams->clientSocket,(google::protobuf::uint32)threadParams->headerSize);
+
+  return 0;
 }

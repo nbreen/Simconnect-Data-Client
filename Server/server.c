@@ -31,7 +31,7 @@ void *receiveData(void* clientSocket) {
 	int *sock = (int *)clientSocket;
 	int client = *sock;
 	char sizeBuff[4];
-	int byteCount = 0;
+	pthread_t processingThread;
 
 	printf("Received client socket\n");
 
@@ -45,16 +45,28 @@ void *receiveData(void* clientSocket) {
 
 	while(1) {
 		result = recv(client, sizeBuff, 4, MSG_PEEK);
-		printf("Result is %d\n", result);
+		printf("Receive is %d\n", result);
 		if (result == -1) {
 			printf("Error receiving data with byteSize\n");
+			break;
 		}else if (result == 0) {
 			break;
 		}
 
-		printf("First read byte count is %d\n", byteCount);
-		readMessage(client, readHeader(sizeBuff));
+		if (result > 0) {
+			printf("First read byte count is %d\n", result);
+			readMessage(client, readHeader(sizeBuff));
+			/*processingParams_t *threadParams = (processingParams_t*) malloc(sizeof(processingParams_t));
+			threadParams->headerSize = readHeader(sizeBuff);
+			threadParams->clientSocket = client;
+
+			pthread_create(&processingThread, NULL, &processingWrapper, &threadParams);*/
+		}
 	}
+
+	//pthread_join(processingThread, NULL);
+
+	printf("Client disconnected %d\n");
 	return 0;
 }
 
@@ -91,6 +103,7 @@ int main(void)
 	int yes=1;
 	char s[INET6_ADDRSTRLEN];
 	int rv;
+	pthread_t clientThread;
 
 	memset(&hints, 0, sizeof hints);
 	hints.ai_family = AF_UNSPEC;
@@ -162,10 +175,11 @@ int main(void)
 			s, sizeof s);
 		printf("server: got connection from %s\n", s);
 
-		pthread_t clientThread;
 		pthread_create(&clientThread, NULL, &receiveData, &new_fd);
 
 	}
+
+	pthread_join(clientThread, NULL);
 
 	return 0;
 }
