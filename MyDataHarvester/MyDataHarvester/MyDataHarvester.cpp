@@ -223,15 +223,14 @@ void CALLBACK MyDispatchProc(SIMCONNECT_RECV* pData, DWORD cbData, void* pContex
                     char sendbuff[BUFF_LEN];
                     HANDLE protoHandle;
                     DWORD threadID;
-                    
 
                     protoHandle = CreateThread(NULL, 0, createProto, (LPVOID)userData, 0, &threadID);
-
-                    sprintf_s(sendbuff, "Data timestamp: %d:%d:%d\n", hours, minutes, seconds);
-                    int iResult = send(clientSocket, sendbuff, (int)strlen(sendbuff), 0);
+              
+                    /*sprintf_s(sendbuff, "Data timestamp: %d:%d:%d\n", hours, minutes, seconds);
+                    int iResult = send(clientSocket, sendbuff, (int)strlen(sendbuff), 0);*/
 
                     std::cout << "Data timestamp: " << static_cast<int>(userData->dTime / 3600) + 00 << ":" << static_cast<int>(userData->dTime / 60  - 60) + 00 << ":" << static_cast<int>(fmod(userData->dTime, 60)) + 00 << "\n";
-                    std::cout << "Send result to server: " << iResult << "\n";
+                    //std::cout << "Send result to server: " << iResult << "\n";
                     //logData(userData, dataOut);
                     
                     break;
