@@ -3,7 +3,7 @@ PROTODIR = ../Proto
 VSINCLUDEPATH = ../MyDataHarvester/Include
 VSSRCPATH = ../MyDataHarvester/MyDataHarvester
 CPROTO = protoc
-PROTOFLAGS = -I=$(PROTODIR) --cpp_out=$(PROTODIR)
+PROTOFLAGS = -I=$(PROTODIR) --cpp_out=.
 CXXFLAGS = -g -c
 PKGFLAGS = `pkg-config --cflags --libs protobuf`
 
@@ -11,13 +11,9 @@ all: server
 
 proto: $(PROTODIR)/simconnectData.proto
 	$(CPROTO) $(PROTOFLAGS) $(PROTODIR)/simconnectData.proto
-	cp $(PROTODIR)/simconnectData.pb.cc .
-	cp $(PROTODIR)/simconnectData.pb.h .
-	cp $(PROTODIR)/simconnectData.pb.cc $(VSSRCPATH)
-	cp $(PROTODIR)/simconnectData.pb.h $(VSINCLUDEPATH)
 
 cleanProto:
-	rm simconnectData.pb.cc simconnectData.pb.h $(PROTODIR)/simconnectData.pb.cc $(PROTODIR)/simconnectData.pb.h $(VSSRCPATH)/simconnectData.pb.cc $(VSINCLUDEPATH)/simconnectData.pb.h
+	rm simconnectData.pb.cc simconnectData.pb.h
 
 basicServer: server.c
 	$(CXX) $(CXXFLAGS) server.c -o basicServer.o
