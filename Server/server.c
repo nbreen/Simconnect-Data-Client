@@ -66,7 +66,7 @@ void *receiveData(void* clientSocket) {
 
 	//pthread_join(processingThread, NULL);
 
-	printf("Client disconnected %d\n");
+	printf("Client disconnected \n");
 	return 0;
 }
 

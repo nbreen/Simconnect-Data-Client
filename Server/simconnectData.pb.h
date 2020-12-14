@@ -187,30 +187,19 @@ class simData PROTOBUF_FINAL :
     kSzTitleFieldNumber = 1,
     kDAbsoluteTimeFieldNumber = 2,
     kDTimeFieldNumber = 3,
-    kUDayOfTheYearFieldNumber = 4,
-    kUYearFieldNumber = 5,
-    kUMonthOfTheYearFieldNumber = 6,
-    kUDayOfTheMonthFieldNumber = 7,
-    kUDayOfTheWeekFieldNumber = 8,
-    kUTimeZoneOffsetFieldNumber = 9,
-    kDSimTimeFieldNumber = 10,
-    kDLatitudeFieldNumber = 11,
-    kDLongitudeFieldNumber = 12,
-    kDAltitudeFieldNumber = 13,
-    kDPitchFieldNumber = 14,
-    kDBankFieldNumber = 15,
-    kDHeadingFieldNumber = 16,
-    kDVelocityXFieldNumber = 17,
-    kDVelocityYFieldNumber = 18,
-    kDVelocityZFieldNumber = 19,
-    kDTemperatureFieldNumber = 20,
-    kDAirPressureFieldNumber = 21,
-    kDAirDensityFieldNumber = 22,
-    kDWindVelocityFieldNumber = 23,
-    kDWindDirectionFieldNumber = 24,
-    kDWindXFieldNumber = 25,
-    kDWindYFieldNumber = 26,
-    kDWindZFieldNumber = 27,
+    kDAltitudeFieldNumber = 5,
+    kDHeadingFieldNumber = 6,
+    kDSpeedFieldNumber = 7,
+    kDVerticalSpeedFieldNumber = 8,
+    kDGpsEtaFieldNumber = 9,
+    kDLatitudeFieldNumber = 10,
+    kDLongitudeFieldNumber = 11,
+    kDSimTimeFieldNumber = 12,
+    kDTemperatureFieldNumber = 13,
+    kDAirPressureFieldNumber = 14,
+    kDWindVelocityFieldNumber = 15,
+    kDWindDirectionFieldNumber = 16,
+    kUsimOnGroundFieldNumber = 4,
   };
   // required string szTitle = 1;
   bool has_sztitle() const;
@@ -258,124 +247,7 @@ class simData PROTOBUF_FINAL :
   void _internal_set_dtime(double value);
   public:
 
-  // required int32 uDayOfTheYear = 4;
-  bool has_udayoftheyear() const;
-  private:
-  bool _internal_has_udayoftheyear() const;
-  public:
-  void clear_udayoftheyear();
-  ::PROTOBUF_NAMESPACE_ID::int32 udayoftheyear() const;
-  void set_udayoftheyear(::PROTOBUF_NAMESPACE_ID::int32 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_udayoftheyear() const;
-  void _internal_set_udayoftheyear(::PROTOBUF_NAMESPACE_ID::int32 value);
-  public:
-
-  // required int32 uYear = 5;
-  bool has_uyear() const;
-  private:
-  bool _internal_has_uyear() const;
-  public:
-  void clear_uyear();
-  ::PROTOBUF_NAMESPACE_ID::int32 uyear() const;
-  void set_uyear(::PROTOBUF_NAMESPACE_ID::int32 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_uyear() const;
-  void _internal_set_uyear(::PROTOBUF_NAMESPACE_ID::int32 value);
-  public:
-
-  // required int32 uMonthOfTheYear = 6;
-  bool has_umonthoftheyear() const;
-  private:
-  bool _internal_has_umonthoftheyear() const;
-  public:
-  void clear_umonthoftheyear();
-  ::PROTOBUF_NAMESPACE_ID::int32 umonthoftheyear() const;
-  void set_umonthoftheyear(::PROTOBUF_NAMESPACE_ID::int32 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_umonthoftheyear() const;
-  void _internal_set_umonthoftheyear(::PROTOBUF_NAMESPACE_ID::int32 value);
-  public:
-
-  // required int32 uDayOfTheMonth = 7;
-  bool has_udayofthemonth() const;
-  private:
-  bool _internal_has_udayofthemonth() const;
-  public:
-  void clear_udayofthemonth();
-  ::PROTOBUF_NAMESPACE_ID::int32 udayofthemonth() const;
-  void set_udayofthemonth(::PROTOBUF_NAMESPACE_ID::int32 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_udayofthemonth() const;
-  void _internal_set_udayofthemonth(::PROTOBUF_NAMESPACE_ID::int32 value);
-  public:
-
-  // required int32 uDayOfTheWeek = 8;
-  bool has_udayoftheweek() const;
-  private:
-  bool _internal_has_udayoftheweek() const;
-  public:
-  void clear_udayoftheweek();
-  ::PROTOBUF_NAMESPACE_ID::int32 udayoftheweek() const;
-  void set_udayoftheweek(::PROTOBUF_NAMESPACE_ID::int32 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_udayoftheweek() const;
-  void _internal_set_udayoftheweek(::PROTOBUF_NAMESPACE_ID::int32 value);
-  public:
-
-  // required int32 uTimeZoneOffset = 9;
-  bool has_utimezoneoffset() const;
-  private:
-  bool _internal_has_utimezoneoffset() const;
-  public:
-  void clear_utimezoneoffset();
-  ::PROTOBUF_NAMESPACE_ID::int32 utimezoneoffset() const;
-  void set_utimezoneoffset(::PROTOBUF_NAMESPACE_ID::int32 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_utimezoneoffset() const;
-  void _internal_set_utimezoneoffset(::PROTOBUF_NAMESPACE_ID::int32 value);
-  public:
-
-  // required double dSimTime = 10;
-  bool has_dsimtime() const;
-  private:
-  bool _internal_has_dsimtime() const;
-  public:
-  void clear_dsimtime();
-  double dsimtime() const;
-  void set_dsimtime(double value);
-  private:
-  double _internal_dsimtime() const;
-  void _internal_set_dsimtime(double value);
-  public:
-
-  // required double dLatitude = 11;
-  bool has_dlatitude() const;
-  private:
-  bool _internal_has_dlatitude() const;
-  public:
-  void clear_dlatitude();
-  double dlatitude() const;
-  void set_dlatitude(double value);
-  private:
-  double _internal_dlatitude() const;
-  void _internal_set_dlatitude(double value);
-  public:
-
-  // required double dLongitude = 12;
-  bool has_dlongitude() const;
-  private:
-  bool _internal_has_dlongitude() const;
-  public:
-  void clear_dlongitude();
-  double dlongitude() const;
-  void set_dlongitude(double value);
-  private:
-  double _internal_dlongitude() const;
-  void _internal_set_dlongitude(double value);
-  public:
-
-  // required double dAltitude = 13;
+  // required double dAltitude = 5;
   bool has_daltitude() const;
   private:
   bool _internal_has_daltitude() const;
@@ -388,33 +260,7 @@ class simData PROTOBUF_FINAL :
   void _internal_set_daltitude(double value);
   public:
 
-  // required double dPitch = 14;
-  bool has_dpitch() const;
-  private:
-  bool _internal_has_dpitch() const;
-  public:
-  void clear_dpitch();
-  double dpitch() const;
-  void set_dpitch(double value);
-  private:
-  double _internal_dpitch() const;
-  void _internal_set_dpitch(double value);
-  public:
-
-  // required double dBank = 15;
-  bool has_dbank() const;
-  private:
-  bool _internal_has_dbank() const;
-  public:
-  void clear_dbank();
-  double dbank() const;
-  void set_dbank(double value);
-  private:
-  double _internal_dbank() const;
-  void _internal_set_dbank(double value);
-  public:
-
-  // required double dHeading = 16;
+  // required double dHeading = 6;
   bool has_dheading() const;
   private:
   bool _internal_has_dheading() const;
@@ -427,46 +273,85 @@ class simData PROTOBUF_FINAL :
   void _internal_set_dheading(double value);
   public:
 
-  // required double dVelocityX = 17;
-  bool has_dvelocityx() const;
+  // required double dSpeed = 7;
+  bool has_dspeed() const;
   private:
-  bool _internal_has_dvelocityx() const;
+  bool _internal_has_dspeed() const;
   public:
-  void clear_dvelocityx();
-  double dvelocityx() const;
-  void set_dvelocityx(double value);
+  void clear_dspeed();
+  double dspeed() const;
+  void set_dspeed(double value);
   private:
-  double _internal_dvelocityx() const;
-  void _internal_set_dvelocityx(double value);
-  public:
-
-  // required double dVelocityY = 18;
-  bool has_dvelocityy() const;
-  private:
-  bool _internal_has_dvelocityy() const;
-  public:
-  void clear_dvelocityy();
-  double dvelocityy() const;
-  void set_dvelocityy(double value);
-  private:
-  double _internal_dvelocityy() const;
-  void _internal_set_dvelocityy(double value);
+  double _internal_dspeed() const;
+  void _internal_set_dspeed(double value);
   public:
 
-  // required double dVelocityZ = 19;
-  bool has_dvelocityz() const;
+  // required double dVerticalSpeed = 8;
+  bool has_dverticalspeed() const;
   private:
-  bool _internal_has_dvelocityz() const;
+  bool _internal_has_dverticalspeed() const;
   public:
-  void clear_dvelocityz();
-  double dvelocityz() const;
-  void set_dvelocityz(double value);
+  void clear_dverticalspeed();
+  double dverticalspeed() const;
+  void set_dverticalspeed(double value);
   private:
-  double _internal_dvelocityz() const;
-  void _internal_set_dvelocityz(double value);
+  double _internal_dverticalspeed() const;
+  void _internal_set_dverticalspeed(double value);
   public:
 
-  // required double dTemperature = 20;
+  // required double dGpsEta = 9;
+  bool has_dgpseta() const;
+  private:
+  bool _internal_has_dgpseta() const;
+  public:
+  void clear_dgpseta();
+  double dgpseta() const;
+  void set_dgpseta(double value);
+  private:
+  double _internal_dgpseta() const;
+  void _internal_set_dgpseta(double value);
+  public:
+
+  // required double dLatitude = 10;
+  bool has_dlatitude() const;
+  private:
+  bool _internal_has_dlatitude() const;
+  public:
+  void clear_dlatitude();
+  double dlatitude() const;
+  void set_dlatitude(double value);
+  private:
+  double _internal_dlatitude() const;
+  void _internal_set_dlatitude(double value);
+  public:
+
+  // required double dLongitude = 11;
+  bool has_dlongitude() const;
+  private:
+  bool _internal_has_dlongitude() const;
+  public:
+  void clear_dlongitude();
+  double dlongitude() const;
+  void set_dlongitude(double value);
+  private:
+  double _internal_dlongitude() const;
+  void _internal_set_dlongitude(double value);
+  public:
+
+  // required double dSimTime = 12;
+  bool has_dsimtime() const;
+  private:
+  bool _internal_has_dsimtime() const;
+  public:
+  void clear_dsimtime();
+  double dsimtime() const;
+  void set_dsimtime(double value);
+  private:
+  double _internal_dsimtime() const;
+  void _internal_set_dsimtime(double value);
+  public:
+
+  // required double dTemperature = 13;
   bool has_dtemperature() const;
   private:
   bool _internal_has_dtemperature() const;
@@ -479,7 +364,7 @@ class simData PROTOBUF_FINAL :
   void _internal_set_dtemperature(double value);
   public:
 
-  // required double dAirPressure = 21;
+  // required double dAirPressure = 14;
   bool has_dairpressure() const;
   private:
   bool _internal_has_dairpressure() const;
@@ -492,20 +377,7 @@ class simData PROTOBUF_FINAL :
   void _internal_set_dairpressure(double value);
   public:
 
-  // required double dAirDensity = 22;
-  bool has_dairdensity() const;
-  private:
-  bool _internal_has_dairdensity() const;
-  public:
-  void clear_dairdensity();
-  double dairdensity() const;
-  void set_dairdensity(double value);
-  private:
-  double _internal_dairdensity() const;
-  void _internal_set_dairdensity(double value);
-  public:
-
-  // required double dWindVelocity = 23;
+  // required double dWindVelocity = 15;
   bool has_dwindvelocity() const;
   private:
   bool _internal_has_dwindvelocity() const;
@@ -518,7 +390,7 @@ class simData PROTOBUF_FINAL :
   void _internal_set_dwindvelocity(double value);
   public:
 
-  // required double dWindDirection = 24;
+  // required double dWindDirection = 16;
   bool has_dwinddirection() const;
   private:
   bool _internal_has_dwinddirection() const;
@@ -531,43 +403,17 @@ class simData PROTOBUF_FINAL :
   void _internal_set_dwinddirection(double value);
   public:
 
-  // required double dWindX = 25;
-  bool has_dwindx() const;
+  // required int32 usimOnGround = 4;
+  bool has_usimonground() const;
   private:
-  bool _internal_has_dwindx() const;
+  bool _internal_has_usimonground() const;
   public:
-  void clear_dwindx();
-  double dwindx() const;
-  void set_dwindx(double value);
+  void clear_usimonground();
+  ::PROTOBUF_NAMESPACE_ID::int32 usimonground() const;
+  void set_usimonground(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  double _internal_dwindx() const;
-  void _internal_set_dwindx(double value);
-  public:
-
-  // required double dWindY = 26;
-  bool has_dwindy() const;
-  private:
-  bool _internal_has_dwindy() const;
-  public:
-  void clear_dwindy();
-  double dwindy() const;
-  void set_dwindy(double value);
-  private:
-  double _internal_dwindy() const;
-  void _internal_set_dwindy(double value);
-  public:
-
-  // required double dWindZ = 27;
-  bool has_dwindz() const;
-  private:
-  bool _internal_has_dwindz() const;
-  public:
-  void clear_dwindz();
-  double dwindz() const;
-  void set_dwindz(double value);
-  private:
-  double _internal_dwindz() const;
-  void _internal_set_dwindz(double value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_usimonground() const;
+  void _internal_set_usimonground(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
   // @@protoc_insertion_point(class_scope:simConnect.simData)
@@ -585,30 +431,19 @@ class simData PROTOBUF_FINAL :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sztitle_;
   double dabsolutetime_;
   double dtime_;
-  ::PROTOBUF_NAMESPACE_ID::int32 udayoftheyear_;
-  ::PROTOBUF_NAMESPACE_ID::int32 uyear_;
-  ::PROTOBUF_NAMESPACE_ID::int32 umonthoftheyear_;
-  ::PROTOBUF_NAMESPACE_ID::int32 udayofthemonth_;
-  ::PROTOBUF_NAMESPACE_ID::int32 udayoftheweek_;
-  ::PROTOBUF_NAMESPACE_ID::int32 utimezoneoffset_;
-  double dsimtime_;
+  double daltitude_;
+  double dheading_;
+  double dspeed_;
+  double dverticalspeed_;
+  double dgpseta_;
   double dlatitude_;
   double dlongitude_;
-  double daltitude_;
-  double dpitch_;
-  double dbank_;
-  double dheading_;
-  double dvelocityx_;
-  double dvelocityy_;
-  double dvelocityz_;
+  double dsimtime_;
   double dtemperature_;
   double dairpressure_;
-  double dairdensity_;
   double dwindvelocity_;
   double dwinddirection_;
-  double dwindx_;
-  double dwindy_;
-  double dwindz_;
+  ::PROTOBUF_NAMESPACE_ID::int32 usimonground_;
   friend struct ::TableStruct_simconnectData_2eproto;
 };
 // ===================================================================
@@ -751,261 +586,37 @@ inline void simData::set_dtime(double value) {
   // @@protoc_insertion_point(field_set:simConnect.simData.dTime)
 }
 
-// required int32 uDayOfTheYear = 4;
-inline bool simData::_internal_has_udayoftheyear() const {
-  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+// required int32 usimOnGround = 4;
+inline bool simData::_internal_has_usimonground() const {
+  bool value = (_has_bits_[0] & 0x00008000u) != 0;
   return value;
 }
-inline bool simData::has_udayoftheyear() const {
-  return _internal_has_udayoftheyear();
+inline bool simData::has_usimonground() const {
+  return _internal_has_usimonground();
 }
-inline void simData::clear_udayoftheyear() {
-  udayoftheyear_ = 0;
-  _has_bits_[0] &= ~0x00000008u;
+inline void simData::clear_usimonground() {
+  usimonground_ = 0;
+  _has_bits_[0] &= ~0x00008000u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 simData::_internal_udayoftheyear() const {
-  return udayoftheyear_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 simData::_internal_usimonground() const {
+  return usimonground_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 simData::udayoftheyear() const {
-  // @@protoc_insertion_point(field_get:simConnect.simData.uDayOfTheYear)
-  return _internal_udayoftheyear();
+inline ::PROTOBUF_NAMESPACE_ID::int32 simData::usimonground() const {
+  // @@protoc_insertion_point(field_get:simConnect.simData.usimOnGround)
+  return _internal_usimonground();
 }
-inline void simData::_internal_set_udayoftheyear(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _has_bits_[0] |= 0x00000008u;
-  udayoftheyear_ = value;
+inline void simData::_internal_set_usimonground(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _has_bits_[0] |= 0x00008000u;
+  usimonground_ = value;
 }
-inline void simData::set_udayoftheyear(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_udayoftheyear(value);
-  // @@protoc_insertion_point(field_set:simConnect.simData.uDayOfTheYear)
-}
-
-// required int32 uYear = 5;
-inline bool simData::_internal_has_uyear() const {
-  bool value = (_has_bits_[0] & 0x00000010u) != 0;
-  return value;
-}
-inline bool simData::has_uyear() const {
-  return _internal_has_uyear();
-}
-inline void simData::clear_uyear() {
-  uyear_ = 0;
-  _has_bits_[0] &= ~0x00000010u;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 simData::_internal_uyear() const {
-  return uyear_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 simData::uyear() const {
-  // @@protoc_insertion_point(field_get:simConnect.simData.uYear)
-  return _internal_uyear();
-}
-inline void simData::_internal_set_uyear(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _has_bits_[0] |= 0x00000010u;
-  uyear_ = value;
-}
-inline void simData::set_uyear(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_uyear(value);
-  // @@protoc_insertion_point(field_set:simConnect.simData.uYear)
+inline void simData::set_usimonground(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_usimonground(value);
+  // @@protoc_insertion_point(field_set:simConnect.simData.usimOnGround)
 }
 
-// required int32 uMonthOfTheYear = 6;
-inline bool simData::_internal_has_umonthoftheyear() const {
-  bool value = (_has_bits_[0] & 0x00000020u) != 0;
-  return value;
-}
-inline bool simData::has_umonthoftheyear() const {
-  return _internal_has_umonthoftheyear();
-}
-inline void simData::clear_umonthoftheyear() {
-  umonthoftheyear_ = 0;
-  _has_bits_[0] &= ~0x00000020u;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 simData::_internal_umonthoftheyear() const {
-  return umonthoftheyear_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 simData::umonthoftheyear() const {
-  // @@protoc_insertion_point(field_get:simConnect.simData.uMonthOfTheYear)
-  return _internal_umonthoftheyear();
-}
-inline void simData::_internal_set_umonthoftheyear(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _has_bits_[0] |= 0x00000020u;
-  umonthoftheyear_ = value;
-}
-inline void simData::set_umonthoftheyear(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_umonthoftheyear(value);
-  // @@protoc_insertion_point(field_set:simConnect.simData.uMonthOfTheYear)
-}
-
-// required int32 uDayOfTheMonth = 7;
-inline bool simData::_internal_has_udayofthemonth() const {
-  bool value = (_has_bits_[0] & 0x00000040u) != 0;
-  return value;
-}
-inline bool simData::has_udayofthemonth() const {
-  return _internal_has_udayofthemonth();
-}
-inline void simData::clear_udayofthemonth() {
-  udayofthemonth_ = 0;
-  _has_bits_[0] &= ~0x00000040u;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 simData::_internal_udayofthemonth() const {
-  return udayofthemonth_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 simData::udayofthemonth() const {
-  // @@protoc_insertion_point(field_get:simConnect.simData.uDayOfTheMonth)
-  return _internal_udayofthemonth();
-}
-inline void simData::_internal_set_udayofthemonth(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _has_bits_[0] |= 0x00000040u;
-  udayofthemonth_ = value;
-}
-inline void simData::set_udayofthemonth(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_udayofthemonth(value);
-  // @@protoc_insertion_point(field_set:simConnect.simData.uDayOfTheMonth)
-}
-
-// required int32 uDayOfTheWeek = 8;
-inline bool simData::_internal_has_udayoftheweek() const {
-  bool value = (_has_bits_[0] & 0x00000080u) != 0;
-  return value;
-}
-inline bool simData::has_udayoftheweek() const {
-  return _internal_has_udayoftheweek();
-}
-inline void simData::clear_udayoftheweek() {
-  udayoftheweek_ = 0;
-  _has_bits_[0] &= ~0x00000080u;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 simData::_internal_udayoftheweek() const {
-  return udayoftheweek_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 simData::udayoftheweek() const {
-  // @@protoc_insertion_point(field_get:simConnect.simData.uDayOfTheWeek)
-  return _internal_udayoftheweek();
-}
-inline void simData::_internal_set_udayoftheweek(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _has_bits_[0] |= 0x00000080u;
-  udayoftheweek_ = value;
-}
-inline void simData::set_udayoftheweek(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_udayoftheweek(value);
-  // @@protoc_insertion_point(field_set:simConnect.simData.uDayOfTheWeek)
-}
-
-// required int32 uTimeZoneOffset = 9;
-inline bool simData::_internal_has_utimezoneoffset() const {
-  bool value = (_has_bits_[0] & 0x00000100u) != 0;
-  return value;
-}
-inline bool simData::has_utimezoneoffset() const {
-  return _internal_has_utimezoneoffset();
-}
-inline void simData::clear_utimezoneoffset() {
-  utimezoneoffset_ = 0;
-  _has_bits_[0] &= ~0x00000100u;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 simData::_internal_utimezoneoffset() const {
-  return utimezoneoffset_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 simData::utimezoneoffset() const {
-  // @@protoc_insertion_point(field_get:simConnect.simData.uTimeZoneOffset)
-  return _internal_utimezoneoffset();
-}
-inline void simData::_internal_set_utimezoneoffset(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _has_bits_[0] |= 0x00000100u;
-  utimezoneoffset_ = value;
-}
-inline void simData::set_utimezoneoffset(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_utimezoneoffset(value);
-  // @@protoc_insertion_point(field_set:simConnect.simData.uTimeZoneOffset)
-}
-
-// required double dSimTime = 10;
-inline bool simData::_internal_has_dsimtime() const {
-  bool value = (_has_bits_[0] & 0x00000200u) != 0;
-  return value;
-}
-inline bool simData::has_dsimtime() const {
-  return _internal_has_dsimtime();
-}
-inline void simData::clear_dsimtime() {
-  dsimtime_ = 0;
-  _has_bits_[0] &= ~0x00000200u;
-}
-inline double simData::_internal_dsimtime() const {
-  return dsimtime_;
-}
-inline double simData::dsimtime() const {
-  // @@protoc_insertion_point(field_get:simConnect.simData.dSimTime)
-  return _internal_dsimtime();
-}
-inline void simData::_internal_set_dsimtime(double value) {
-  _has_bits_[0] |= 0x00000200u;
-  dsimtime_ = value;
-}
-inline void simData::set_dsimtime(double value) {
-  _internal_set_dsimtime(value);
-  // @@protoc_insertion_point(field_set:simConnect.simData.dSimTime)
-}
-
-// required double dLatitude = 11;
-inline bool simData::_internal_has_dlatitude() const {
-  bool value = (_has_bits_[0] & 0x00000400u) != 0;
-  return value;
-}
-inline bool simData::has_dlatitude() const {
-  return _internal_has_dlatitude();
-}
-inline void simData::clear_dlatitude() {
-  dlatitude_ = 0;
-  _has_bits_[0] &= ~0x00000400u;
-}
-inline double simData::_internal_dlatitude() const {
-  return dlatitude_;
-}
-inline double simData::dlatitude() const {
-  // @@protoc_insertion_point(field_get:simConnect.simData.dLatitude)
-  return _internal_dlatitude();
-}
-inline void simData::_internal_set_dlatitude(double value) {
-  _has_bits_[0] |= 0x00000400u;
-  dlatitude_ = value;
-}
-inline void simData::set_dlatitude(double value) {
-  _internal_set_dlatitude(value);
-  // @@protoc_insertion_point(field_set:simConnect.simData.dLatitude)
-}
-
-// required double dLongitude = 12;
-inline bool simData::_internal_has_dlongitude() const {
-  bool value = (_has_bits_[0] & 0x00000800u) != 0;
-  return value;
-}
-inline bool simData::has_dlongitude() const {
-  return _internal_has_dlongitude();
-}
-inline void simData::clear_dlongitude() {
-  dlongitude_ = 0;
-  _has_bits_[0] &= ~0x00000800u;
-}
-inline double simData::_internal_dlongitude() const {
-  return dlongitude_;
-}
-inline double simData::dlongitude() const {
-  // @@protoc_insertion_point(field_get:simConnect.simData.dLongitude)
-  return _internal_dlongitude();
-}
-inline void simData::_internal_set_dlongitude(double value) {
-  _has_bits_[0] |= 0x00000800u;
-  dlongitude_ = value;
-}
-inline void simData::set_dlongitude(double value) {
-  _internal_set_dlongitude(value);
-  // @@protoc_insertion_point(field_set:simConnect.simData.dLongitude)
-}
-
-// required double dAltitude = 13;
+// required double dAltitude = 5;
 inline bool simData::_internal_has_daltitude() const {
-  bool value = (_has_bits_[0] & 0x00001000u) != 0;
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline bool simData::has_daltitude() const {
@@ -1013,7 +624,7 @@ inline bool simData::has_daltitude() const {
 }
 inline void simData::clear_daltitude() {
   daltitude_ = 0;
-  _has_bits_[0] &= ~0x00001000u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline double simData::_internal_daltitude() const {
   return daltitude_;
@@ -1023,7 +634,7 @@ inline double simData::daltitude() const {
   return _internal_daltitude();
 }
 inline void simData::_internal_set_daltitude(double value) {
-  _has_bits_[0] |= 0x00001000u;
+  _has_bits_[0] |= 0x00000008u;
   daltitude_ = value;
 }
 inline void simData::set_daltitude(double value) {
@@ -1031,65 +642,9 @@ inline void simData::set_daltitude(double value) {
   // @@protoc_insertion_point(field_set:simConnect.simData.dAltitude)
 }
 
-// required double dPitch = 14;
-inline bool simData::_internal_has_dpitch() const {
-  bool value = (_has_bits_[0] & 0x00002000u) != 0;
-  return value;
-}
-inline bool simData::has_dpitch() const {
-  return _internal_has_dpitch();
-}
-inline void simData::clear_dpitch() {
-  dpitch_ = 0;
-  _has_bits_[0] &= ~0x00002000u;
-}
-inline double simData::_internal_dpitch() const {
-  return dpitch_;
-}
-inline double simData::dpitch() const {
-  // @@protoc_insertion_point(field_get:simConnect.simData.dPitch)
-  return _internal_dpitch();
-}
-inline void simData::_internal_set_dpitch(double value) {
-  _has_bits_[0] |= 0x00002000u;
-  dpitch_ = value;
-}
-inline void simData::set_dpitch(double value) {
-  _internal_set_dpitch(value);
-  // @@protoc_insertion_point(field_set:simConnect.simData.dPitch)
-}
-
-// required double dBank = 15;
-inline bool simData::_internal_has_dbank() const {
-  bool value = (_has_bits_[0] & 0x00004000u) != 0;
-  return value;
-}
-inline bool simData::has_dbank() const {
-  return _internal_has_dbank();
-}
-inline void simData::clear_dbank() {
-  dbank_ = 0;
-  _has_bits_[0] &= ~0x00004000u;
-}
-inline double simData::_internal_dbank() const {
-  return dbank_;
-}
-inline double simData::dbank() const {
-  // @@protoc_insertion_point(field_get:simConnect.simData.dBank)
-  return _internal_dbank();
-}
-inline void simData::_internal_set_dbank(double value) {
-  _has_bits_[0] |= 0x00004000u;
-  dbank_ = value;
-}
-inline void simData::set_dbank(double value) {
-  _internal_set_dbank(value);
-  // @@protoc_insertion_point(field_set:simConnect.simData.dBank)
-}
-
-// required double dHeading = 16;
+// required double dHeading = 6;
 inline bool simData::_internal_has_dheading() const {
-  bool value = (_has_bits_[0] & 0x00008000u) != 0;
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
   return value;
 }
 inline bool simData::has_dheading() const {
@@ -1097,7 +652,7 @@ inline bool simData::has_dheading() const {
 }
 inline void simData::clear_dheading() {
   dheading_ = 0;
-  _has_bits_[0] &= ~0x00008000u;
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline double simData::_internal_dheading() const {
   return dheading_;
@@ -1107,7 +662,7 @@ inline double simData::dheading() const {
   return _internal_dheading();
 }
 inline void simData::_internal_set_dheading(double value) {
-  _has_bits_[0] |= 0x00008000u;
+  _has_bits_[0] |= 0x00000010u;
   dheading_ = value;
 }
 inline void simData::set_dheading(double value) {
@@ -1115,93 +670,177 @@ inline void simData::set_dheading(double value) {
   // @@protoc_insertion_point(field_set:simConnect.simData.dHeading)
 }
 
-// required double dVelocityX = 17;
-inline bool simData::_internal_has_dvelocityx() const {
-  bool value = (_has_bits_[0] & 0x00010000u) != 0;
+// required double dSpeed = 7;
+inline bool simData::_internal_has_dspeed() const {
+  bool value = (_has_bits_[0] & 0x00000020u) != 0;
   return value;
 }
-inline bool simData::has_dvelocityx() const {
-  return _internal_has_dvelocityx();
+inline bool simData::has_dspeed() const {
+  return _internal_has_dspeed();
 }
-inline void simData::clear_dvelocityx() {
-  dvelocityx_ = 0;
-  _has_bits_[0] &= ~0x00010000u;
+inline void simData::clear_dspeed() {
+  dspeed_ = 0;
+  _has_bits_[0] &= ~0x00000020u;
 }
-inline double simData::_internal_dvelocityx() const {
-  return dvelocityx_;
+inline double simData::_internal_dspeed() const {
+  return dspeed_;
 }
-inline double simData::dvelocityx() const {
-  // @@protoc_insertion_point(field_get:simConnect.simData.dVelocityX)
-  return _internal_dvelocityx();
+inline double simData::dspeed() const {
+  // @@protoc_insertion_point(field_get:simConnect.simData.dSpeed)
+  return _internal_dspeed();
 }
-inline void simData::_internal_set_dvelocityx(double value) {
-  _has_bits_[0] |= 0x00010000u;
-  dvelocityx_ = value;
+inline void simData::_internal_set_dspeed(double value) {
+  _has_bits_[0] |= 0x00000020u;
+  dspeed_ = value;
 }
-inline void simData::set_dvelocityx(double value) {
-  _internal_set_dvelocityx(value);
-  // @@protoc_insertion_point(field_set:simConnect.simData.dVelocityX)
+inline void simData::set_dspeed(double value) {
+  _internal_set_dspeed(value);
+  // @@protoc_insertion_point(field_set:simConnect.simData.dSpeed)
 }
 
-// required double dVelocityY = 18;
-inline bool simData::_internal_has_dvelocityy() const {
-  bool value = (_has_bits_[0] & 0x00020000u) != 0;
+// required double dVerticalSpeed = 8;
+inline bool simData::_internal_has_dverticalspeed() const {
+  bool value = (_has_bits_[0] & 0x00000040u) != 0;
   return value;
 }
-inline bool simData::has_dvelocityy() const {
-  return _internal_has_dvelocityy();
+inline bool simData::has_dverticalspeed() const {
+  return _internal_has_dverticalspeed();
 }
-inline void simData::clear_dvelocityy() {
-  dvelocityy_ = 0;
-  _has_bits_[0] &= ~0x00020000u;
+inline void simData::clear_dverticalspeed() {
+  dverticalspeed_ = 0;
+  _has_bits_[0] &= ~0x00000040u;
 }
-inline double simData::_internal_dvelocityy() const {
-  return dvelocityy_;
+inline double simData::_internal_dverticalspeed() const {
+  return dverticalspeed_;
 }
-inline double simData::dvelocityy() const {
-  // @@protoc_insertion_point(field_get:simConnect.simData.dVelocityY)
-  return _internal_dvelocityy();
+inline double simData::dverticalspeed() const {
+  // @@protoc_insertion_point(field_get:simConnect.simData.dVerticalSpeed)
+  return _internal_dverticalspeed();
 }
-inline void simData::_internal_set_dvelocityy(double value) {
-  _has_bits_[0] |= 0x00020000u;
-  dvelocityy_ = value;
+inline void simData::_internal_set_dverticalspeed(double value) {
+  _has_bits_[0] |= 0x00000040u;
+  dverticalspeed_ = value;
 }
-inline void simData::set_dvelocityy(double value) {
-  _internal_set_dvelocityy(value);
-  // @@protoc_insertion_point(field_set:simConnect.simData.dVelocityY)
+inline void simData::set_dverticalspeed(double value) {
+  _internal_set_dverticalspeed(value);
+  // @@protoc_insertion_point(field_set:simConnect.simData.dVerticalSpeed)
 }
 
-// required double dVelocityZ = 19;
-inline bool simData::_internal_has_dvelocityz() const {
-  bool value = (_has_bits_[0] & 0x00040000u) != 0;
+// required double dGpsEta = 9;
+inline bool simData::_internal_has_dgpseta() const {
+  bool value = (_has_bits_[0] & 0x00000080u) != 0;
   return value;
 }
-inline bool simData::has_dvelocityz() const {
-  return _internal_has_dvelocityz();
+inline bool simData::has_dgpseta() const {
+  return _internal_has_dgpseta();
 }
-inline void simData::clear_dvelocityz() {
-  dvelocityz_ = 0;
-  _has_bits_[0] &= ~0x00040000u;
+inline void simData::clear_dgpseta() {
+  dgpseta_ = 0;
+  _has_bits_[0] &= ~0x00000080u;
 }
-inline double simData::_internal_dvelocityz() const {
-  return dvelocityz_;
+inline double simData::_internal_dgpseta() const {
+  return dgpseta_;
 }
-inline double simData::dvelocityz() const {
-  // @@protoc_insertion_point(field_get:simConnect.simData.dVelocityZ)
-  return _internal_dvelocityz();
+inline double simData::dgpseta() const {
+  // @@protoc_insertion_point(field_get:simConnect.simData.dGpsEta)
+  return _internal_dgpseta();
 }
-inline void simData::_internal_set_dvelocityz(double value) {
-  _has_bits_[0] |= 0x00040000u;
-  dvelocityz_ = value;
+inline void simData::_internal_set_dgpseta(double value) {
+  _has_bits_[0] |= 0x00000080u;
+  dgpseta_ = value;
 }
-inline void simData::set_dvelocityz(double value) {
-  _internal_set_dvelocityz(value);
-  // @@protoc_insertion_point(field_set:simConnect.simData.dVelocityZ)
+inline void simData::set_dgpseta(double value) {
+  _internal_set_dgpseta(value);
+  // @@protoc_insertion_point(field_set:simConnect.simData.dGpsEta)
 }
 
-// required double dTemperature = 20;
+// required double dLatitude = 10;
+inline bool simData::_internal_has_dlatitude() const {
+  bool value = (_has_bits_[0] & 0x00000100u) != 0;
+  return value;
+}
+inline bool simData::has_dlatitude() const {
+  return _internal_has_dlatitude();
+}
+inline void simData::clear_dlatitude() {
+  dlatitude_ = 0;
+  _has_bits_[0] &= ~0x00000100u;
+}
+inline double simData::_internal_dlatitude() const {
+  return dlatitude_;
+}
+inline double simData::dlatitude() const {
+  // @@protoc_insertion_point(field_get:simConnect.simData.dLatitude)
+  return _internal_dlatitude();
+}
+inline void simData::_internal_set_dlatitude(double value) {
+  _has_bits_[0] |= 0x00000100u;
+  dlatitude_ = value;
+}
+inline void simData::set_dlatitude(double value) {
+  _internal_set_dlatitude(value);
+  // @@protoc_insertion_point(field_set:simConnect.simData.dLatitude)
+}
+
+// required double dLongitude = 11;
+inline bool simData::_internal_has_dlongitude() const {
+  bool value = (_has_bits_[0] & 0x00000200u) != 0;
+  return value;
+}
+inline bool simData::has_dlongitude() const {
+  return _internal_has_dlongitude();
+}
+inline void simData::clear_dlongitude() {
+  dlongitude_ = 0;
+  _has_bits_[0] &= ~0x00000200u;
+}
+inline double simData::_internal_dlongitude() const {
+  return dlongitude_;
+}
+inline double simData::dlongitude() const {
+  // @@protoc_insertion_point(field_get:simConnect.simData.dLongitude)
+  return _internal_dlongitude();
+}
+inline void simData::_internal_set_dlongitude(double value) {
+  _has_bits_[0] |= 0x00000200u;
+  dlongitude_ = value;
+}
+inline void simData::set_dlongitude(double value) {
+  _internal_set_dlongitude(value);
+  // @@protoc_insertion_point(field_set:simConnect.simData.dLongitude)
+}
+
+// required double dSimTime = 12;
+inline bool simData::_internal_has_dsimtime() const {
+  bool value = (_has_bits_[0] & 0x00000400u) != 0;
+  return value;
+}
+inline bool simData::has_dsimtime() const {
+  return _internal_has_dsimtime();
+}
+inline void simData::clear_dsimtime() {
+  dsimtime_ = 0;
+  _has_bits_[0] &= ~0x00000400u;
+}
+inline double simData::_internal_dsimtime() const {
+  return dsimtime_;
+}
+inline double simData::dsimtime() const {
+  // @@protoc_insertion_point(field_get:simConnect.simData.dSimTime)
+  return _internal_dsimtime();
+}
+inline void simData::_internal_set_dsimtime(double value) {
+  _has_bits_[0] |= 0x00000400u;
+  dsimtime_ = value;
+}
+inline void simData::set_dsimtime(double value) {
+  _internal_set_dsimtime(value);
+  // @@protoc_insertion_point(field_set:simConnect.simData.dSimTime)
+}
+
+// required double dTemperature = 13;
 inline bool simData::_internal_has_dtemperature() const {
-  bool value = (_has_bits_[0] & 0x00080000u) != 0;
+  bool value = (_has_bits_[0] & 0x00000800u) != 0;
   return value;
 }
 inline bool simData::has_dtemperature() const {
@@ -1209,7 +848,7 @@ inline bool simData::has_dtemperature() const {
 }
 inline void simData::clear_dtemperature() {
   dtemperature_ = 0;
-  _has_bits_[0] &= ~0x00080000u;
+  _has_bits_[0] &= ~0x00000800u;
 }
 inline double simData::_internal_dtemperature() const {
   return dtemperature_;
@@ -1219,7 +858,7 @@ inline double simData::dtemperature() const {
   return _internal_dtemperature();
 }
 inline void simData::_internal_set_dtemperature(double value) {
-  _has_bits_[0] |= 0x00080000u;
+  _has_bits_[0] |= 0x00000800u;
   dtemperature_ = value;
 }
 inline void simData::set_dtemperature(double value) {
@@ -1227,9 +866,9 @@ inline void simData::set_dtemperature(double value) {
   // @@protoc_insertion_point(field_set:simConnect.simData.dTemperature)
 }
 
-// required double dAirPressure = 21;
+// required double dAirPressure = 14;
 inline bool simData::_internal_has_dairpressure() const {
-  bool value = (_has_bits_[0] & 0x00100000u) != 0;
+  bool value = (_has_bits_[0] & 0x00001000u) != 0;
   return value;
 }
 inline bool simData::has_dairpressure() const {
@@ -1237,7 +876,7 @@ inline bool simData::has_dairpressure() const {
 }
 inline void simData::clear_dairpressure() {
   dairpressure_ = 0;
-  _has_bits_[0] &= ~0x00100000u;
+  _has_bits_[0] &= ~0x00001000u;
 }
 inline double simData::_internal_dairpressure() const {
   return dairpressure_;
@@ -1247,7 +886,7 @@ inline double simData::dairpressure() const {
   return _internal_dairpressure();
 }
 inline void simData::_internal_set_dairpressure(double value) {
-  _has_bits_[0] |= 0x00100000u;
+  _has_bits_[0] |= 0x00001000u;
   dairpressure_ = value;
 }
 inline void simData::set_dairpressure(double value) {
@@ -1255,37 +894,9 @@ inline void simData::set_dairpressure(double value) {
   // @@protoc_insertion_point(field_set:simConnect.simData.dAirPressure)
 }
 
-// required double dAirDensity = 22;
-inline bool simData::_internal_has_dairdensity() const {
-  bool value = (_has_bits_[0] & 0x00200000u) != 0;
-  return value;
-}
-inline bool simData::has_dairdensity() const {
-  return _internal_has_dairdensity();
-}
-inline void simData::clear_dairdensity() {
-  dairdensity_ = 0;
-  _has_bits_[0] &= ~0x00200000u;
-}
-inline double simData::_internal_dairdensity() const {
-  return dairdensity_;
-}
-inline double simData::dairdensity() const {
-  // @@protoc_insertion_point(field_get:simConnect.simData.dAirDensity)
-  return _internal_dairdensity();
-}
-inline void simData::_internal_set_dairdensity(double value) {
-  _has_bits_[0] |= 0x00200000u;
-  dairdensity_ = value;
-}
-inline void simData::set_dairdensity(double value) {
-  _internal_set_dairdensity(value);
-  // @@protoc_insertion_point(field_set:simConnect.simData.dAirDensity)
-}
-
-// required double dWindVelocity = 23;
+// required double dWindVelocity = 15;
 inline bool simData::_internal_has_dwindvelocity() const {
-  bool value = (_has_bits_[0] & 0x00400000u) != 0;
+  bool value = (_has_bits_[0] & 0x00002000u) != 0;
   return value;
 }
 inline bool simData::has_dwindvelocity() const {
@@ -1293,7 +904,7 @@ inline bool simData::has_dwindvelocity() const {
 }
 inline void simData::clear_dwindvelocity() {
   dwindvelocity_ = 0;
-  _has_bits_[0] &= ~0x00400000u;
+  _has_bits_[0] &= ~0x00002000u;
 }
 inline double simData::_internal_dwindvelocity() const {
   return dwindvelocity_;
@@ -1303,7 +914,7 @@ inline double simData::dwindvelocity() const {
   return _internal_dwindvelocity();
 }
 inline void simData::_internal_set_dwindvelocity(double value) {
-  _has_bits_[0] |= 0x00400000u;
+  _has_bits_[0] |= 0x00002000u;
   dwindvelocity_ = value;
 }
 inline void simData::set_dwindvelocity(double value) {
@@ -1311,9 +922,9 @@ inline void simData::set_dwindvelocity(double value) {
   // @@protoc_insertion_point(field_set:simConnect.simData.dWindVelocity)
 }
 
-// required double dWindDirection = 24;
+// required double dWindDirection = 16;
 inline bool simData::_internal_has_dwinddirection() const {
-  bool value = (_has_bits_[0] & 0x00800000u) != 0;
+  bool value = (_has_bits_[0] & 0x00004000u) != 0;
   return value;
 }
 inline bool simData::has_dwinddirection() const {
@@ -1321,7 +932,7 @@ inline bool simData::has_dwinddirection() const {
 }
 inline void simData::clear_dwinddirection() {
   dwinddirection_ = 0;
-  _has_bits_[0] &= ~0x00800000u;
+  _has_bits_[0] &= ~0x00004000u;
 }
 inline double simData::_internal_dwinddirection() const {
   return dwinddirection_;
@@ -1331,96 +942,12 @@ inline double simData::dwinddirection() const {
   return _internal_dwinddirection();
 }
 inline void simData::_internal_set_dwinddirection(double value) {
-  _has_bits_[0] |= 0x00800000u;
+  _has_bits_[0] |= 0x00004000u;
   dwinddirection_ = value;
 }
 inline void simData::set_dwinddirection(double value) {
   _internal_set_dwinddirection(value);
   // @@protoc_insertion_point(field_set:simConnect.simData.dWindDirection)
-}
-
-// required double dWindX = 25;
-inline bool simData::_internal_has_dwindx() const {
-  bool value = (_has_bits_[0] & 0x01000000u) != 0;
-  return value;
-}
-inline bool simData::has_dwindx() const {
-  return _internal_has_dwindx();
-}
-inline void simData::clear_dwindx() {
-  dwindx_ = 0;
-  _has_bits_[0] &= ~0x01000000u;
-}
-inline double simData::_internal_dwindx() const {
-  return dwindx_;
-}
-inline double simData::dwindx() const {
-  // @@protoc_insertion_point(field_get:simConnect.simData.dWindX)
-  return _internal_dwindx();
-}
-inline void simData::_internal_set_dwindx(double value) {
-  _has_bits_[0] |= 0x01000000u;
-  dwindx_ = value;
-}
-inline void simData::set_dwindx(double value) {
-  _internal_set_dwindx(value);
-  // @@protoc_insertion_point(field_set:simConnect.simData.dWindX)
-}
-
-// required double dWindY = 26;
-inline bool simData::_internal_has_dwindy() const {
-  bool value = (_has_bits_[0] & 0x02000000u) != 0;
-  return value;
-}
-inline bool simData::has_dwindy() const {
-  return _internal_has_dwindy();
-}
-inline void simData::clear_dwindy() {
-  dwindy_ = 0;
-  _has_bits_[0] &= ~0x02000000u;
-}
-inline double simData::_internal_dwindy() const {
-  return dwindy_;
-}
-inline double simData::dwindy() const {
-  // @@protoc_insertion_point(field_get:simConnect.simData.dWindY)
-  return _internal_dwindy();
-}
-inline void simData::_internal_set_dwindy(double value) {
-  _has_bits_[0] |= 0x02000000u;
-  dwindy_ = value;
-}
-inline void simData::set_dwindy(double value) {
-  _internal_set_dwindy(value);
-  // @@protoc_insertion_point(field_set:simConnect.simData.dWindY)
-}
-
-// required double dWindZ = 27;
-inline bool simData::_internal_has_dwindz() const {
-  bool value = (_has_bits_[0] & 0x04000000u) != 0;
-  return value;
-}
-inline bool simData::has_dwindz() const {
-  return _internal_has_dwindz();
-}
-inline void simData::clear_dwindz() {
-  dwindz_ = 0;
-  _has_bits_[0] &= ~0x04000000u;
-}
-inline double simData::_internal_dwindz() const {
-  return dwindz_;
-}
-inline double simData::dwindz() const {
-  // @@protoc_insertion_point(field_get:simConnect.simData.dWindZ)
-  return _internal_dwindz();
-}
-inline void simData::_internal_set_dwindz(double value) {
-  _has_bits_[0] |= 0x04000000u;
-  dwindz_ = value;
-}
-inline void simData::set_dwindz(double value) {
-  _internal_set_dwindz(value);
-  // @@protoc_insertion_point(field_set:simConnect.simData.dWindZ)
 }
 
 #ifdef __GNUC__
