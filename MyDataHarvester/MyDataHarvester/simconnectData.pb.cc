@@ -62,7 +62,6 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_simconnectData_2eproto::offset
   0,
   1,
   2,
-  15,
   3,
   4,
   5,
@@ -75,6 +74,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_simconnectData_2eproto::offset
   12,
   13,
   14,
+  15,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, 21, sizeof(::simConnect::simData)},
@@ -88,7 +88,7 @@ const char descriptor_table_protodef_simconnectData_2eproto[] PROTOBUF_SECTION_V
   "\n\024simconnectData.proto\022\nsimConnect\"\310\002\n\007s"
   "imData\022\017\n\007szTitle\030\001 \002(\t\022\025\n\rdAbsoluteTime"
   "\030\002 \002(\001\022\r\n\005dTime\030\003 \002(\001\022\024\n\014usimOnGround\030\004 "
-  "\002(\005\022\021\n\tdAltitude\030\005 \002(\001\022\020\n\010dHeading\030\006 \002(\001"
+  "\002(\001\022\021\n\tdAltitude\030\005 \002(\001\022\020\n\010dHeading\030\006 \002(\001"
   "\022\016\n\006dSpeed\030\007 \002(\001\022\026\n\016dVerticalSpeed\030\010 \002(\001"
   "\022\017\n\007dGpsEta\030\t \002(\001\022\021\n\tdLatitude\030\n \002(\001\022\022\n\n"
   "dLongitude\030\013 \002(\001\022\020\n\010dSimTime\030\014 \002(\001\022\024\n\014dT"
@@ -128,43 +128,43 @@ class simData::_Internal {
     (*has_bits)[0] |= 4u;
   }
   static void set_has_usimonground(HasBits* has_bits) {
-    (*has_bits)[0] |= 32768u;
-  }
-  static void set_has_daltitude(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
-  static void set_has_dheading(HasBits* has_bits) {
+  static void set_has_daltitude(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
   }
-  static void set_has_dspeed(HasBits* has_bits) {
+  static void set_has_dheading(HasBits* has_bits) {
     (*has_bits)[0] |= 32u;
   }
-  static void set_has_dverticalspeed(HasBits* has_bits) {
+  static void set_has_dspeed(HasBits* has_bits) {
     (*has_bits)[0] |= 64u;
   }
-  static void set_has_dgpseta(HasBits* has_bits) {
+  static void set_has_dverticalspeed(HasBits* has_bits) {
     (*has_bits)[0] |= 128u;
   }
-  static void set_has_dlatitude(HasBits* has_bits) {
+  static void set_has_dgpseta(HasBits* has_bits) {
     (*has_bits)[0] |= 256u;
   }
-  static void set_has_dlongitude(HasBits* has_bits) {
+  static void set_has_dlatitude(HasBits* has_bits) {
     (*has_bits)[0] |= 512u;
   }
-  static void set_has_dsimtime(HasBits* has_bits) {
+  static void set_has_dlongitude(HasBits* has_bits) {
     (*has_bits)[0] |= 1024u;
   }
-  static void set_has_dtemperature(HasBits* has_bits) {
+  static void set_has_dsimtime(HasBits* has_bits) {
     (*has_bits)[0] |= 2048u;
   }
-  static void set_has_dairpressure(HasBits* has_bits) {
+  static void set_has_dtemperature(HasBits* has_bits) {
     (*has_bits)[0] |= 4096u;
   }
-  static void set_has_dwindvelocity(HasBits* has_bits) {
+  static void set_has_dairpressure(HasBits* has_bits) {
     (*has_bits)[0] |= 8192u;
   }
-  static void set_has_dwinddirection(HasBits* has_bits) {
+  static void set_has_dwindvelocity(HasBits* has_bits) {
     (*has_bits)[0] |= 16384u;
+  }
+  static void set_has_dwinddirection(HasBits* has_bits) {
+    (*has_bits)[0] |= 32768u;
   }
   static bool MissingRequiredFields(const HasBits& has_bits) {
     return ((has_bits[0] & 0x0000ffff) ^ 0x0000ffff) != 0;
@@ -187,8 +187,8 @@ simData::simData(const simData& from)
       GetArena());
   }
   ::memcpy(&dabsolutetime_, &from.dabsolutetime_,
-    static_cast<size_t>(reinterpret_cast<char*>(&usimonground_) -
-    reinterpret_cast<char*>(&dabsolutetime_)) + sizeof(usimonground_));
+    static_cast<size_t>(reinterpret_cast<char*>(&dwinddirection_) -
+    reinterpret_cast<char*>(&dabsolutetime_)) + sizeof(dwinddirection_));
   // @@protoc_insertion_point(copy_constructor:simConnect.simData)
 }
 
@@ -197,8 +197,8 @@ void simData::SharedCtor() {
   sztitle_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
       reinterpret_cast<char*>(&dabsolutetime_) - reinterpret_cast<char*>(this)),
-      0, static_cast<size_t>(reinterpret_cast<char*>(&usimonground_) -
-      reinterpret_cast<char*>(&dabsolutetime_)) + sizeof(usimonground_));
+      0, static_cast<size_t>(reinterpret_cast<char*>(&dwinddirection_) -
+      reinterpret_cast<char*>(&dabsolutetime_)) + sizeof(dwinddirection_));
 }
 
 simData::~simData() {
@@ -239,13 +239,13 @@ void simData::Clear() {
   }
   if (cached_has_bits & 0x000000feu) {
     ::memset(&dabsolutetime_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&dgpseta_) -
-        reinterpret_cast<char*>(&dabsolutetime_)) + sizeof(dgpseta_));
+        reinterpret_cast<char*>(&dverticalspeed_) -
+        reinterpret_cast<char*>(&dabsolutetime_)) + sizeof(dverticalspeed_));
   }
   if (cached_has_bits & 0x0000ff00u) {
-    ::memset(&dlatitude_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&usimonground_) -
-        reinterpret_cast<char*>(&dlatitude_)) + sizeof(usimonground_));
+    ::memset(&dgpseta_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&dwinddirection_) -
+        reinterpret_cast<char*>(&dgpseta_)) + sizeof(dwinddirection_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -286,12 +286,12 @@ const char* simData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
           ptr += sizeof(double);
         } else goto handle_unusual;
         continue;
-      // required int32 usimOnGround = 4;
+      // required double usimOnGround = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 33)) {
           _Internal::set_has_usimonground(&has_bits);
-          usimonground_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
+          usimonground_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
         } else goto handle_unusual;
         continue;
       // required double dAltitude = 5;
@@ -442,80 +442,80 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(3, this->_internal_dtime(), target);
   }
 
-  // required int32 usimOnGround = 4;
-  if (cached_has_bits & 0x00008000u) {
+  // required double usimOnGround = 4;
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(4, this->_internal_usimonground(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(4, this->_internal_usimonground(), target);
   }
 
   // required double dAltitude = 5;
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(5, this->_internal_daltitude(), target);
   }
 
   // required double dHeading = 6;
-  if (cached_has_bits & 0x00000010u) {
+  if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(6, this->_internal_dheading(), target);
   }
 
   // required double dSpeed = 7;
-  if (cached_has_bits & 0x00000020u) {
+  if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(7, this->_internal_dspeed(), target);
   }
 
   // required double dVerticalSpeed = 8;
-  if (cached_has_bits & 0x00000040u) {
+  if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(8, this->_internal_dverticalspeed(), target);
   }
 
   // required double dGpsEta = 9;
-  if (cached_has_bits & 0x00000080u) {
+  if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(9, this->_internal_dgpseta(), target);
   }
 
   // required double dLatitude = 10;
-  if (cached_has_bits & 0x00000100u) {
+  if (cached_has_bits & 0x00000200u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(10, this->_internal_dlatitude(), target);
   }
 
   // required double dLongitude = 11;
-  if (cached_has_bits & 0x00000200u) {
+  if (cached_has_bits & 0x00000400u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(11, this->_internal_dlongitude(), target);
   }
 
   // required double dSimTime = 12;
-  if (cached_has_bits & 0x00000400u) {
+  if (cached_has_bits & 0x00000800u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(12, this->_internal_dsimtime(), target);
   }
 
   // required double dTemperature = 13;
-  if (cached_has_bits & 0x00000800u) {
+  if (cached_has_bits & 0x00001000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(13, this->_internal_dtemperature(), target);
   }
 
   // required double dAirPressure = 14;
-  if (cached_has_bits & 0x00001000u) {
+  if (cached_has_bits & 0x00002000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(14, this->_internal_dairpressure(), target);
   }
 
   // required double dWindVelocity = 15;
-  if (cached_has_bits & 0x00002000u) {
+  if (cached_has_bits & 0x00004000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(15, this->_internal_dwindvelocity(), target);
   }
 
   // required double dWindDirection = 16;
-  if (cached_has_bits & 0x00004000u) {
+  if (cached_has_bits & 0x00008000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(16, this->_internal_dwinddirection(), target);
   }
@@ -546,6 +546,11 @@ size_t simData::RequiredFieldsByteSizeFallback() const {
 
   if (_internal_has_dtime()) {
     // required double dTime = 3;
+    total_size += 1 + 8;
+  }
+
+  if (_internal_has_usimonground()) {
+    // required double usimOnGround = 4;
     total_size += 1 + 8;
   }
 
@@ -609,13 +614,6 @@ size_t simData::RequiredFieldsByteSizeFallback() const {
     total_size += 2 + 8;
   }
 
-  if (_internal_has_usimonground()) {
-    // required int32 usimOnGround = 4;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_usimonground());
-  }
-
   return total_size;
 }
 size_t simData::ByteSizeLong() const {
@@ -632,6 +630,9 @@ size_t simData::ByteSizeLong() const {
     total_size += 1 + 8;
 
     // required double dTime = 3;
+    total_size += 1 + 8;
+
+    // required double usimOnGround = 4;
     total_size += 1 + 8;
 
     // required double dAltitude = 5;
@@ -669,11 +670,6 @@ size_t simData::ByteSizeLong() const {
 
     // required double dWindDirection = 16;
     total_size += 2 + 8;
-
-    // required int32 usimOnGround = 4;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_usimonground());
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
@@ -725,46 +721,46 @@ void simData::MergeFrom(const simData& from) {
       dtime_ = from.dtime_;
     }
     if (cached_has_bits & 0x00000008u) {
-      daltitude_ = from.daltitude_;
+      usimonground_ = from.usimonground_;
     }
     if (cached_has_bits & 0x00000010u) {
-      dheading_ = from.dheading_;
+      daltitude_ = from.daltitude_;
     }
     if (cached_has_bits & 0x00000020u) {
-      dspeed_ = from.dspeed_;
+      dheading_ = from.dheading_;
     }
     if (cached_has_bits & 0x00000040u) {
-      dverticalspeed_ = from.dverticalspeed_;
+      dspeed_ = from.dspeed_;
     }
     if (cached_has_bits & 0x00000080u) {
-      dgpseta_ = from.dgpseta_;
+      dverticalspeed_ = from.dverticalspeed_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
   if (cached_has_bits & 0x0000ff00u) {
     if (cached_has_bits & 0x00000100u) {
-      dlatitude_ = from.dlatitude_;
+      dgpseta_ = from.dgpseta_;
     }
     if (cached_has_bits & 0x00000200u) {
-      dlongitude_ = from.dlongitude_;
+      dlatitude_ = from.dlatitude_;
     }
     if (cached_has_bits & 0x00000400u) {
-      dsimtime_ = from.dsimtime_;
+      dlongitude_ = from.dlongitude_;
     }
     if (cached_has_bits & 0x00000800u) {
-      dtemperature_ = from.dtemperature_;
+      dsimtime_ = from.dsimtime_;
     }
     if (cached_has_bits & 0x00001000u) {
-      dairpressure_ = from.dairpressure_;
+      dtemperature_ = from.dtemperature_;
     }
     if (cached_has_bits & 0x00002000u) {
-      dwindvelocity_ = from.dwindvelocity_;
+      dairpressure_ = from.dairpressure_;
     }
     if (cached_has_bits & 0x00004000u) {
-      dwinddirection_ = from.dwinddirection_;
+      dwindvelocity_ = from.dwindvelocity_;
     }
     if (cached_has_bits & 0x00008000u) {
-      usimonground_ = from.usimonground_;
+      dwinddirection_ = from.dwinddirection_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -795,8 +791,8 @@ void simData::InternalSwap(simData* other) {
   swap(_has_bits_[0], other->_has_bits_[0]);
   sztitle_.Swap(&other->sztitle_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(simData, usimonground_)
-      + sizeof(simData::usimonground_)
+      PROTOBUF_FIELD_OFFSET(simData, dwinddirection_)
+      + sizeof(simData::dwinddirection_)
       - PROTOBUF_FIELD_OFFSET(simData, dabsolutetime_)>(
           reinterpret_cast<char*>(&dabsolutetime_),
           reinterpret_cast<char*>(&other->dabsolutetime_));

@@ -35,7 +35,53 @@ enum DEFINITION_ID
     USER_OBJECT_DEF,
 };
 
-struct ObjectData
+struct PropertyDefinition {
+    const char* pszName;
+    const char* pszUnits;
+    SIMCONNECT_DATATYPE eDataType;
+};
+
+struct ObjectData {
+    char   szTitle[256];
+    double dAbsoluteTime;
+    double dTime;
+    double uSimOnGround;
+    double dAltitude;
+    double dHeading;
+    double dSpeed;
+    double dVerticalSpeed;
+    double dGpsEta;
+    double dLatitude;
+    double dLongitude;
+    double dSimTime;
+    double dTemperature;
+    double dPressure;
+    double dWindVelocity;
+    double dWindDirection;
+};
+
+
+const PropertyDefinition g_aVariables[] =
+{
+    { "TITLE",                          NULL,                   SIMCONNECT_DATATYPE_STRING256 },
+    { "ABSOLUTE TIME",                  "Seconds",              SIMCONNECT_DATATYPE_FLOAT64   },
+    { "ZULU TIME",                      "Seconds",              SIMCONNECT_DATATYPE_FLOAT64   },
+    { "SIM ON GROUND",                  "Bool",                 SIMCONNECT_DATATYPE_FLOAT64     },
+    { "PLANE ALTITUDE",                 "Feet",                 SIMCONNECT_DATATYPE_FLOAT64   },
+    { "PLANE HEADING DEGREES MAGNETIC", "Radians",              SIMCONNECT_DATATYPE_FLOAT64   },
+    { "AIRSPEED TRUE",                  "Knots",                SIMCONNECT_DATATYPE_FLOAT64   },
+    { "VERTICAL SPEED",                 "Feet per second",      SIMCONNECT_DATATYPE_FLOAT64   },
+    { "GPS ETA",                        "Seconds",              SIMCONNECT_DATATYPE_FLOAT64   },
+    { "PLANE LATITUDE",                 "Degrees",              SIMCONNECT_DATATYPE_FLOAT64   },
+    { "PLANE LONGITUDE",                "Degrees",              SIMCONNECT_DATATYPE_FLOAT64   },
+    { "SIM TIME",                       "Seconds",              SIMCONNECT_DATATYPE_FLOAT64   },
+    { "AMBIENT TEMPERATURE",            "Celsius",              SIMCONNECT_DATATYPE_FLOAT64   },
+    { "AMBIENT PRESSURE",               "Millibars",            SIMCONNECT_DATATYPE_FLOAT64   },
+    { "AMBIENT WIND VELOCITY",          "Feet Per Second",      SIMCONNECT_DATATYPE_FLOAT64   },
+    { "AMBIENT WIND DIRECTION",         "Degrees",              SIMCONNECT_DATATYPE_FLOAT64   },
+};
+
+/*struct ObjectData
 {
     char    szTitle[256];
     double  dAbsoluteTime;
@@ -64,14 +110,7 @@ struct ObjectData
     double  dWindX;
     double  dWindY;
     double  dWindZ;
-};
-
-struct PropertyDefinition
-{
-    const char* pszName;
-    const char* pszUnits;
-    SIMCONNECT_DATATYPE eDataType;
-};
+};*/
 
 /*const PropertyDefinition g_aVariables[] =
 {
@@ -103,28 +142,6 @@ struct PropertyDefinition
     { "AMBIENT WIND Y",             "Meters per second",    SIMCONNECT_DATATYPE_FLOAT64     },
     { "AMBIENT WIND Z",             "Meters per second",    SIMCONNECT_DATATYPE_FLOAT64     },
 };*/
-
-const PropertyDefinition g_aVariables[] =
-{
-    { "TITLE",                          NULL,                   SIMCONNECT_DATATYPE_STRING256 },
-    { "ABSOLUTE TIME",                  "Seconds",              SIMCONNECT_DATATYPE_FLOAT64   },
-    { "ZULU TIME",                      "Seconds",              SIMCONNECT_DATATYPE_FLOAT64   },
-    { "SIM ON GROUND",                  "Bool",                 SIMCONNECT_DATATYPE_INT32     },
-    { "PLANE ALTITUDE",                 "Feet",                 SIMCONNECT_DATATYPE_FLOAT64   },
-    { "PLANE HEADING DEGREES MAGNETIC", "Degrees",              SIMCONNECT_DATATYPE_FLOAT64   },
-    { "AIRSPEED TRUE",                  "Knots",                SIMCONNECT_DATATYPE_FLOAT64   },
-    { "VERTICAL SPEED",                 "Feet per second",      SIMCONNECT_DATATYPE_FLOAT64   },
-    { "GPS ETA",                        "Seconds",              SIMCONNECT_DATATYPE_FLOAT64   },
-    { "PLANE LATITUDE",                 "Degrees",              SIMCONNECT_DATATYPE_FLOAT64   },
-    { "PLANE LONGITUDE",                "Degrees",              SIMCONNECT_DATATYPE_FLOAT64   },
-    { "SIM TIME",                       "Seconds",              SIMCONNECT_DATATYPE_FLOAT64   },
-    { "AMBIENT TEMPERATURE",            "Celsius",              SIMCONNECT_DATATYPE_FLOAT64   },
-    { "AMBIENT PRESSURE",               "Millibars",            SIMCONNECT_DATATYPE_FLOAT64   },
-    { "AMBIENT WIND VELOCITY",          "Knots",                SIMCONNECT_DATATYPE_FLOAT64   },
-    { "AMBIENT WIND DIRECTION",         "Degrees",              SIMCONNECT_DATATYPE_FLOAT64   },
-
-
-};
 
 bool ConnectToSim(SOCKET);
 DWORD WINAPI simConnectDispatch(LPVOID);
