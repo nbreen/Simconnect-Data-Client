@@ -187,6 +187,7 @@ class simData PROTOBUF_FINAL :
     kSzTitleFieldNumber = 1,
     kDAbsoluteTimeFieldNumber = 2,
     kDTimeFieldNumber = 3,
+    kUsimOnGroundFieldNumber = 4,
     kDAltitudeFieldNumber = 5,
     kDHeadingFieldNumber = 6,
     kDSpeedFieldNumber = 7,
@@ -199,7 +200,6 @@ class simData PROTOBUF_FINAL :
     kDAirPressureFieldNumber = 14,
     kDWindVelocityFieldNumber = 15,
     kDWindDirectionFieldNumber = 16,
-    kUsimOnGroundFieldNumber = 4,
   };
   // required string szTitle = 1;
   bool has_sztitle() const;
@@ -245,6 +245,19 @@ class simData PROTOBUF_FINAL :
   private:
   double _internal_dtime() const;
   void _internal_set_dtime(double value);
+  public:
+
+  // required double usimOnGround = 4;
+  bool has_usimonground() const;
+  private:
+  bool _internal_has_usimonground() const;
+  public:
+  void clear_usimonground();
+  double usimonground() const;
+  void set_usimonground(double value);
+  private:
+  double _internal_usimonground() const;
+  void _internal_set_usimonground(double value);
   public:
 
   // required double dAltitude = 5;
@@ -403,19 +416,6 @@ class simData PROTOBUF_FINAL :
   void _internal_set_dwinddirection(double value);
   public:
 
-  // required int32 usimOnGround = 4;
-  bool has_usimonground() const;
-  private:
-  bool _internal_has_usimonground() const;
-  public:
-  void clear_usimonground();
-  ::PROTOBUF_NAMESPACE_ID::int32 usimonground() const;
-  void set_usimonground(::PROTOBUF_NAMESPACE_ID::int32 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_usimonground() const;
-  void _internal_set_usimonground(::PROTOBUF_NAMESPACE_ID::int32 value);
-  public:
-
   // @@protoc_insertion_point(class_scope:simConnect.simData)
  private:
   class _Internal;
@@ -431,6 +431,7 @@ class simData PROTOBUF_FINAL :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sztitle_;
   double dabsolutetime_;
   double dtime_;
+  double usimonground_;
   double daltitude_;
   double dheading_;
   double dspeed_;
@@ -443,7 +444,6 @@ class simData PROTOBUF_FINAL :
   double dairpressure_;
   double dwindvelocity_;
   double dwinddirection_;
-  ::PROTOBUF_NAMESPACE_ID::int32 usimonground_;
   friend struct ::TableStruct_simconnectData_2eproto;
 };
 // ===================================================================
@@ -586,9 +586,9 @@ inline void simData::set_dtime(double value) {
   // @@protoc_insertion_point(field_set:simConnect.simData.dTime)
 }
 
-// required int32 usimOnGround = 4;
+// required double usimOnGround = 4;
 inline bool simData::_internal_has_usimonground() const {
-  bool value = (_has_bits_[0] & 0x00008000u) != 0;
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline bool simData::has_usimonground() const {
@@ -596,27 +596,27 @@ inline bool simData::has_usimonground() const {
 }
 inline void simData::clear_usimonground() {
   usimonground_ = 0;
-  _has_bits_[0] &= ~0x00008000u;
+  _has_bits_[0] &= ~0x00000008u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 simData::_internal_usimonground() const {
+inline double simData::_internal_usimonground() const {
   return usimonground_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 simData::usimonground() const {
+inline double simData::usimonground() const {
   // @@protoc_insertion_point(field_get:simConnect.simData.usimOnGround)
   return _internal_usimonground();
 }
-inline void simData::_internal_set_usimonground(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _has_bits_[0] |= 0x00008000u;
+inline void simData::_internal_set_usimonground(double value) {
+  _has_bits_[0] |= 0x00000008u;
   usimonground_ = value;
 }
-inline void simData::set_usimonground(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void simData::set_usimonground(double value) {
   _internal_set_usimonground(value);
   // @@protoc_insertion_point(field_set:simConnect.simData.usimOnGround)
 }
 
 // required double dAltitude = 5;
 inline bool simData::_internal_has_daltitude() const {
-  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
   return value;
 }
 inline bool simData::has_daltitude() const {
@@ -624,7 +624,7 @@ inline bool simData::has_daltitude() const {
 }
 inline void simData::clear_daltitude() {
   daltitude_ = 0;
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline double simData::_internal_daltitude() const {
   return daltitude_;
@@ -634,7 +634,7 @@ inline double simData::daltitude() const {
   return _internal_daltitude();
 }
 inline void simData::_internal_set_daltitude(double value) {
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000010u;
   daltitude_ = value;
 }
 inline void simData::set_daltitude(double value) {
@@ -644,7 +644,7 @@ inline void simData::set_daltitude(double value) {
 
 // required double dHeading = 6;
 inline bool simData::_internal_has_dheading() const {
-  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  bool value = (_has_bits_[0] & 0x00000020u) != 0;
   return value;
 }
 inline bool simData::has_dheading() const {
@@ -652,7 +652,7 @@ inline bool simData::has_dheading() const {
 }
 inline void simData::clear_dheading() {
   dheading_ = 0;
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000020u;
 }
 inline double simData::_internal_dheading() const {
   return dheading_;
@@ -662,7 +662,7 @@ inline double simData::dheading() const {
   return _internal_dheading();
 }
 inline void simData::_internal_set_dheading(double value) {
-  _has_bits_[0] |= 0x00000010u;
+  _has_bits_[0] |= 0x00000020u;
   dheading_ = value;
 }
 inline void simData::set_dheading(double value) {
@@ -672,7 +672,7 @@ inline void simData::set_dheading(double value) {
 
 // required double dSpeed = 7;
 inline bool simData::_internal_has_dspeed() const {
-  bool value = (_has_bits_[0] & 0x00000020u) != 0;
+  bool value = (_has_bits_[0] & 0x00000040u) != 0;
   return value;
 }
 inline bool simData::has_dspeed() const {
@@ -680,7 +680,7 @@ inline bool simData::has_dspeed() const {
 }
 inline void simData::clear_dspeed() {
   dspeed_ = 0;
-  _has_bits_[0] &= ~0x00000020u;
+  _has_bits_[0] &= ~0x00000040u;
 }
 inline double simData::_internal_dspeed() const {
   return dspeed_;
@@ -690,7 +690,7 @@ inline double simData::dspeed() const {
   return _internal_dspeed();
 }
 inline void simData::_internal_set_dspeed(double value) {
-  _has_bits_[0] |= 0x00000020u;
+  _has_bits_[0] |= 0x00000040u;
   dspeed_ = value;
 }
 inline void simData::set_dspeed(double value) {
@@ -700,7 +700,7 @@ inline void simData::set_dspeed(double value) {
 
 // required double dVerticalSpeed = 8;
 inline bool simData::_internal_has_dverticalspeed() const {
-  bool value = (_has_bits_[0] & 0x00000040u) != 0;
+  bool value = (_has_bits_[0] & 0x00000080u) != 0;
   return value;
 }
 inline bool simData::has_dverticalspeed() const {
@@ -708,7 +708,7 @@ inline bool simData::has_dverticalspeed() const {
 }
 inline void simData::clear_dverticalspeed() {
   dverticalspeed_ = 0;
-  _has_bits_[0] &= ~0x00000040u;
+  _has_bits_[0] &= ~0x00000080u;
 }
 inline double simData::_internal_dverticalspeed() const {
   return dverticalspeed_;
@@ -718,7 +718,7 @@ inline double simData::dverticalspeed() const {
   return _internal_dverticalspeed();
 }
 inline void simData::_internal_set_dverticalspeed(double value) {
-  _has_bits_[0] |= 0x00000040u;
+  _has_bits_[0] |= 0x00000080u;
   dverticalspeed_ = value;
 }
 inline void simData::set_dverticalspeed(double value) {
@@ -728,7 +728,7 @@ inline void simData::set_dverticalspeed(double value) {
 
 // required double dGpsEta = 9;
 inline bool simData::_internal_has_dgpseta() const {
-  bool value = (_has_bits_[0] & 0x00000080u) != 0;
+  bool value = (_has_bits_[0] & 0x00000100u) != 0;
   return value;
 }
 inline bool simData::has_dgpseta() const {
@@ -736,7 +736,7 @@ inline bool simData::has_dgpseta() const {
 }
 inline void simData::clear_dgpseta() {
   dgpseta_ = 0;
-  _has_bits_[0] &= ~0x00000080u;
+  _has_bits_[0] &= ~0x00000100u;
 }
 inline double simData::_internal_dgpseta() const {
   return dgpseta_;
@@ -746,7 +746,7 @@ inline double simData::dgpseta() const {
   return _internal_dgpseta();
 }
 inline void simData::_internal_set_dgpseta(double value) {
-  _has_bits_[0] |= 0x00000080u;
+  _has_bits_[0] |= 0x00000100u;
   dgpseta_ = value;
 }
 inline void simData::set_dgpseta(double value) {
@@ -756,7 +756,7 @@ inline void simData::set_dgpseta(double value) {
 
 // required double dLatitude = 10;
 inline bool simData::_internal_has_dlatitude() const {
-  bool value = (_has_bits_[0] & 0x00000100u) != 0;
+  bool value = (_has_bits_[0] & 0x00000200u) != 0;
   return value;
 }
 inline bool simData::has_dlatitude() const {
@@ -764,7 +764,7 @@ inline bool simData::has_dlatitude() const {
 }
 inline void simData::clear_dlatitude() {
   dlatitude_ = 0;
-  _has_bits_[0] &= ~0x00000100u;
+  _has_bits_[0] &= ~0x00000200u;
 }
 inline double simData::_internal_dlatitude() const {
   return dlatitude_;
@@ -774,7 +774,7 @@ inline double simData::dlatitude() const {
   return _internal_dlatitude();
 }
 inline void simData::_internal_set_dlatitude(double value) {
-  _has_bits_[0] |= 0x00000100u;
+  _has_bits_[0] |= 0x00000200u;
   dlatitude_ = value;
 }
 inline void simData::set_dlatitude(double value) {
@@ -784,7 +784,7 @@ inline void simData::set_dlatitude(double value) {
 
 // required double dLongitude = 11;
 inline bool simData::_internal_has_dlongitude() const {
-  bool value = (_has_bits_[0] & 0x00000200u) != 0;
+  bool value = (_has_bits_[0] & 0x00000400u) != 0;
   return value;
 }
 inline bool simData::has_dlongitude() const {
@@ -792,7 +792,7 @@ inline bool simData::has_dlongitude() const {
 }
 inline void simData::clear_dlongitude() {
   dlongitude_ = 0;
-  _has_bits_[0] &= ~0x00000200u;
+  _has_bits_[0] &= ~0x00000400u;
 }
 inline double simData::_internal_dlongitude() const {
   return dlongitude_;
@@ -802,7 +802,7 @@ inline double simData::dlongitude() const {
   return _internal_dlongitude();
 }
 inline void simData::_internal_set_dlongitude(double value) {
-  _has_bits_[0] |= 0x00000200u;
+  _has_bits_[0] |= 0x00000400u;
   dlongitude_ = value;
 }
 inline void simData::set_dlongitude(double value) {
@@ -812,7 +812,7 @@ inline void simData::set_dlongitude(double value) {
 
 // required double dSimTime = 12;
 inline bool simData::_internal_has_dsimtime() const {
-  bool value = (_has_bits_[0] & 0x00000400u) != 0;
+  bool value = (_has_bits_[0] & 0x00000800u) != 0;
   return value;
 }
 inline bool simData::has_dsimtime() const {
@@ -820,7 +820,7 @@ inline bool simData::has_dsimtime() const {
 }
 inline void simData::clear_dsimtime() {
   dsimtime_ = 0;
-  _has_bits_[0] &= ~0x00000400u;
+  _has_bits_[0] &= ~0x00000800u;
 }
 inline double simData::_internal_dsimtime() const {
   return dsimtime_;
@@ -830,7 +830,7 @@ inline double simData::dsimtime() const {
   return _internal_dsimtime();
 }
 inline void simData::_internal_set_dsimtime(double value) {
-  _has_bits_[0] |= 0x00000400u;
+  _has_bits_[0] |= 0x00000800u;
   dsimtime_ = value;
 }
 inline void simData::set_dsimtime(double value) {
@@ -840,7 +840,7 @@ inline void simData::set_dsimtime(double value) {
 
 // required double dTemperature = 13;
 inline bool simData::_internal_has_dtemperature() const {
-  bool value = (_has_bits_[0] & 0x00000800u) != 0;
+  bool value = (_has_bits_[0] & 0x00001000u) != 0;
   return value;
 }
 inline bool simData::has_dtemperature() const {
@@ -848,7 +848,7 @@ inline bool simData::has_dtemperature() const {
 }
 inline void simData::clear_dtemperature() {
   dtemperature_ = 0;
-  _has_bits_[0] &= ~0x00000800u;
+  _has_bits_[0] &= ~0x00001000u;
 }
 inline double simData::_internal_dtemperature() const {
   return dtemperature_;
@@ -858,7 +858,7 @@ inline double simData::dtemperature() const {
   return _internal_dtemperature();
 }
 inline void simData::_internal_set_dtemperature(double value) {
-  _has_bits_[0] |= 0x00000800u;
+  _has_bits_[0] |= 0x00001000u;
   dtemperature_ = value;
 }
 inline void simData::set_dtemperature(double value) {
@@ -868,7 +868,7 @@ inline void simData::set_dtemperature(double value) {
 
 // required double dAirPressure = 14;
 inline bool simData::_internal_has_dairpressure() const {
-  bool value = (_has_bits_[0] & 0x00001000u) != 0;
+  bool value = (_has_bits_[0] & 0x00002000u) != 0;
   return value;
 }
 inline bool simData::has_dairpressure() const {
@@ -876,7 +876,7 @@ inline bool simData::has_dairpressure() const {
 }
 inline void simData::clear_dairpressure() {
   dairpressure_ = 0;
-  _has_bits_[0] &= ~0x00001000u;
+  _has_bits_[0] &= ~0x00002000u;
 }
 inline double simData::_internal_dairpressure() const {
   return dairpressure_;
@@ -886,7 +886,7 @@ inline double simData::dairpressure() const {
   return _internal_dairpressure();
 }
 inline void simData::_internal_set_dairpressure(double value) {
-  _has_bits_[0] |= 0x00001000u;
+  _has_bits_[0] |= 0x00002000u;
   dairpressure_ = value;
 }
 inline void simData::set_dairpressure(double value) {
@@ -896,7 +896,7 @@ inline void simData::set_dairpressure(double value) {
 
 // required double dWindVelocity = 15;
 inline bool simData::_internal_has_dwindvelocity() const {
-  bool value = (_has_bits_[0] & 0x00002000u) != 0;
+  bool value = (_has_bits_[0] & 0x00004000u) != 0;
   return value;
 }
 inline bool simData::has_dwindvelocity() const {
@@ -904,7 +904,7 @@ inline bool simData::has_dwindvelocity() const {
 }
 inline void simData::clear_dwindvelocity() {
   dwindvelocity_ = 0;
-  _has_bits_[0] &= ~0x00002000u;
+  _has_bits_[0] &= ~0x00004000u;
 }
 inline double simData::_internal_dwindvelocity() const {
   return dwindvelocity_;
@@ -914,7 +914,7 @@ inline double simData::dwindvelocity() const {
   return _internal_dwindvelocity();
 }
 inline void simData::_internal_set_dwindvelocity(double value) {
-  _has_bits_[0] |= 0x00002000u;
+  _has_bits_[0] |= 0x00004000u;
   dwindvelocity_ = value;
 }
 inline void simData::set_dwindvelocity(double value) {
@@ -924,7 +924,7 @@ inline void simData::set_dwindvelocity(double value) {
 
 // required double dWindDirection = 16;
 inline bool simData::_internal_has_dwinddirection() const {
-  bool value = (_has_bits_[0] & 0x00004000u) != 0;
+  bool value = (_has_bits_[0] & 0x00008000u) != 0;
   return value;
 }
 inline bool simData::has_dwinddirection() const {
@@ -932,7 +932,7 @@ inline bool simData::has_dwinddirection() const {
 }
 inline void simData::clear_dwinddirection() {
   dwinddirection_ = 0;
-  _has_bits_[0] &= ~0x00004000u;
+  _has_bits_[0] &= ~0x00008000u;
 }
 inline double simData::_internal_dwinddirection() const {
   return dwinddirection_;
@@ -942,7 +942,7 @@ inline double simData::dwinddirection() const {
   return _internal_dwinddirection();
 }
 inline void simData::_internal_set_dwinddirection(double value) {
-  _has_bits_[0] |= 0x00004000u;
+  _has_bits_[0] |= 0x00008000u;
   dwinddirection_ = value;
 }
 inline void simData::set_dwinddirection(double value) {

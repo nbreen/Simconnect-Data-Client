@@ -159,7 +159,7 @@ int main(void)
 	}
 
     inet_ntop(p->ai_family, get_in_addr((struct sockaddr *)p->ai_addr),
-			s, sizeof s);
+			s, sizeof(s));
 	printf("server: listening on %s waiting for connections...\n", s);
 
 	while(1) {  // main accept() loop
@@ -172,7 +172,7 @@ int main(void)
 
 		inet_ntop(their_addr.ss_family,
 			get_in_addr((struct sockaddr *)&their_addr),
-			s, sizeof s);
+			s, sizeof(s));
 		printf("server: got connection from %s\n", s);
 
 		pthread_create(&clientThread, NULL, &receiveData, &new_fd);

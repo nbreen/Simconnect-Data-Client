@@ -6,7 +6,7 @@ message simData {
     required string  szTitle = 1;
     required double  dAbsoluteTime = 2;
     required double  dTime = 3;
-    required int32   usimOnGround = 4;
+    required double  usimOnGround = 4;
     required double  dAltitude = 5;
     required double  dHeading = 6;
     required double  dSpeed = 7;
