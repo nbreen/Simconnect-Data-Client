@@ -1,11 +1,14 @@
 CXX = g++
+CXXFLAGS = -g -c
+PKGFLAGS = `pkg-config --cflags --libs protobuf`
+CPROTO = protoc
+PROTOFLAGS = -I=$(PROTODIR) --cpp_out=.
 PROTODIR = ../Proto
 VSINCLUDEPATH = ../MyDataHarvester/Include
 VSSRCPATH = ../MyDataHarvester/MyDataHarvester
-CPROTO = protoc
-PROTOFLAGS = -I=$(PROTODIR) --cpp_out=.
-CXXFLAGS = -g -c
-PKGFLAGS = `pkg-config --cflags --libs protobuf`
+CCUDA = nvcc
+CCUDAFLAGS = -g -c
+CUDADIR = ../Cuda
 
 all: server
 
@@ -24,8 +27,11 @@ protoBuf: simconnectData.pb.cc
 protoHelper: processProtobuff.cc
 	$(CXX) $(CXXFLAGS) processProtobuff.cc -o processProtobuff.o
 
-server: basicServer protoBuf protoHelper
-	$(CXX) -o server basicServer.o simconnectProto.o processProtobuff.o $(PKGFLAGS)
+cudaProcess: $(CUDADIR)/cudaProcess.cu
+	$(CCUDA) $(CCUDAFLAGS) $(CUDADIR)/cudaProcess.cu -o cudaProcess.o
+
+server: basicServer protoBuf protoHelper cudaProcess
+	$(CCUDA) -o server basicServer.o simconnectProto.o processProtobuff.o cudaProcess.o -lprotobuf
 
 clean:
 	rm *.o server
