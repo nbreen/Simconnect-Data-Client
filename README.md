@@ -1,4 +1,4 @@
-﻿# Simconnect
+﻿# Simconnect Data Client
 This project creates an application to pull user aircraft data from Lockheed Martin's Prepar3d flight simulator using the SimConnect SDK.
 Process it with Nvidia Cuda and make it available to an Angular based website. This project is largely a learning experience but to my knowledge there is no similar software out there.
 
