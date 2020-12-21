@@ -9,7 +9,7 @@ HANDLE simSession;
 FILE* dataOut;
 SOCKET clientSocket;
 
-void logData(ObjectData* toLog) {
+/*void logData(ObjectData* toLog) {
     fprintf(dataOut,"Title: %s\n", toLog->szTitle);
     fprintf(dataOut, "Absolute Time: %f seconds\n", toLog->dAbsoluteTime);
     fprintf(dataOut, "Zulu Time: %f Seconds\n", toLog->dTime);
@@ -26,13 +26,13 @@ void logData(ObjectData* toLog) {
     fprintf(dataOut, "Air Pressure: %f Millibars\n", toLog->dPressure);
     fprintf(dataOut, "Wind Velocity: %f Feet Per Second\n", toLog->dWindVelocity);
     fprintf(dataOut, "Wind Direction: %f Degrees\n\n\n", toLog->dWindDirection);
-}
+}*/
 
 DWORD WINAPI createProto(LPVOID lParam) {
     ObjectData* toConvert = (ObjectData*)lParam;
-    fopen_s(&dataOut,"dataOut.txt", "a+");
-    fprintf(dataOut, "Before serialiing \n");
-    logData(toConvert);
+    //fopen_s(&dataOut,"dataOut.txt", "a+");
+    //fprintf(dataOut, "Before serialiing \n");
+    //logData(toConvert);
     simConnect::simData convertedData;
     std::string toStr(toConvert->szTitle);
 
@@ -54,17 +54,20 @@ DWORD WINAPI createProto(LPVOID lParam) {
     convertedData.set_dwinddirection(toConvert->dWindDirection);
 
     printf("Size after serializing is %ld\n", convertedData.ByteSizeLong());
-    long pktSize = convertedData.ByteSizeLong();
-    fprintf(dataOut, "After serializing before socket\n %s\n\n", convertedData.DebugString().c_str());
+    long pktSize = convertedData.ByteSizeLong() + 4;
+    //fprintf(dataOut, "After serializing before socket size is %ld \n%s\n\n", convertedData.ByteSizeLong(),convertedData.DebugString().c_str());
     char* pkt = new char[pktSize];
     google::protobuf::io::ArrayOutputStream aos(pkt, pktSize);
     google::protobuf::io::CodedOutputStream* coded_pkt = new google::protobuf::io::CodedOutputStream(&aos);
     coded_pkt->WriteVarint64(convertedData.ByteSizeLong());
     convertedData.SerializeToCodedStream(coded_pkt);
-
+    /*std::string *strPkt = new std::string();
+    convertedData.SerializeToString(strPkt);
+    pkt = _strdup(strPkt->c_str());*/
+    //fprintf(dataOut, "pkt buffer is %s and size is %ld\n\n", pkt, convertedData.ByteSizeLong());
     int iResult = send(clientSocket, pkt, pktSize, 0);
     printf("Sent bytes %d\n", iResult);
-    fclose(dataOut);
+    //fclose(dataOut);
 
     return 0;
 }

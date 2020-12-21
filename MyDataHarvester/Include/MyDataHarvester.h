@@ -66,7 +66,7 @@ const PropertyDefinition g_aVariables[] =
     { "TITLE",                          NULL,                   SIMCONNECT_DATATYPE_STRING256 },
     { "ABSOLUTE TIME",                  "Seconds",              SIMCONNECT_DATATYPE_FLOAT64   },
     { "ZULU TIME",                      "Seconds",              SIMCONNECT_DATATYPE_FLOAT64   },
-    { "SIM ON GROUND",                  "Bool",                 SIMCONNECT_DATATYPE_FLOAT64     },
+    { "SIM ON GROUND",                  "Bool",                 SIMCONNECT_DATATYPE_FLOAT64   },
     { "PLANE ALTITUDE",                 "Feet",                 SIMCONNECT_DATATYPE_FLOAT64   },
     { "PLANE HEADING DEGREES MAGNETIC", "Radians",              SIMCONNECT_DATATYPE_FLOAT64   },
     { "AIRSPEED TRUE",                  "Knots",                SIMCONNECT_DATATYPE_FLOAT64   },
