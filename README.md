@@ -2,6 +2,10 @@
 This project creates an application to pull user aircraft data from Lockheed Martin's Prepar3d flight simulator using the SimConnect SDK.
 Process it with Nvidia Cuda and make it available to an Angular based website. This project is largely a learning experience but to my knowledge there is no similar software out there.
 
+Huge thanks to these two posts for helping out with Protocol Buffers and Sockets
+https://stackoverflow.com/questions/65367111/protocol-buffer-corrupting-data/65387171#65387171
+https://stackoverflow.com/questions/9496101/protocol-buffer-over-socket-in-c
+
 # Client
 The client code is written in C++ (Windows 10 Visual Studio 2019) and run on the same machine running the flight simulator. 
 The SimConnect code is largely based on the DataHarvester example from the SimConnect SDK. 
@@ -12,10 +16,6 @@ Once the protocol buffer is made it is sent via socket to the server, currently 
 The server is running on a local networked machine running Ubuntu Server. The basic server code is taken from Beej's Guide and then extended.
 The server receives and processes the Protocol Buffer and then passes it to a Cuda function for additional processing.
 Currently the cuda function is just an identity function but this will be expanded on later.
-
-# Known bugs
-There were several bugs with struct alignment in memory and general memory layout issue which appear to now be fixed.
-There is a known bug on the server side when the protocol buffer is received via socket the final field (WindDirection) is corrupted.
 
 # Next Features
 The next steps will be to modify to the Cuda function to process the data and then make it available to my Angular based website.
