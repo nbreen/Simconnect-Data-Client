@@ -32,7 +32,7 @@ cudaProcess: $(CUDADIR)/cudaProcess.cu
 
 server: basicServer protoBuf protoHelper cudaProcess
 	$(CCUDA) -o server basicServer.o simconnectProto.o processProtobuff.o cudaProcess.o -lprotobuf
-
+	rm *.o
 clean:
-	rm *.o server
+	rm server
 
