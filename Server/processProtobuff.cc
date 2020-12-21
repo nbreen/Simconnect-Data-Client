@@ -17,7 +17,7 @@ void readMessage(int csock, google::protobuf::uint64 siz) {
   simConnect::simData payload;
   char buffer [siz+4];//size of the payload and hdr
   //Read the entire buffer including the hdr
-  if((bytecount = recv(csock, (void *)buffer, 4+siz, 0))== -1){
+  if((bytecount = recv(csock, (void *)buffer, 4+siz, MSG_WAITALL))== -1) {
                 fprintf(stderr, "Error receiving data %d\n", errno);
         }
   std::cout<<"Second read byte count is "<<bytecount<<std::endl;
@@ -36,9 +36,11 @@ void readMessage(int csock, google::protobuf::uint64 siz) {
   coded_input.PopLimit(msgLimit);
   //Print the message
   //std::cout<<"Message is "<<payload.DebugString();
-  FILE *outFile = fopen("out.txt", "a+");
-  fprintf(outFile, "From socket\n %s\n\n", payload.DebugString().c_str());
-  fclose(outFile);
+  //FILE *outFile = fopen("out.txt", "a+");
+  /*std::string strPkt(buffer);
+  payload.ParseFromString(strPkt);*/
+  //fprintf(outFile, "From socket\n%s\n\n", payload.DebugString().c_str());
+  //fclose(outFile);
   cudaProcess(payload);
 }
 
