@@ -55,16 +55,11 @@ void *receiveData(void* clientSocket) {
 
 		if (result > 0) {
 			printf("First read byte count is %d\n", result);
+			/* This isn't the most efficient as this 
+			 * will run all the way through cuda     */
 			readMessage(client, readHeader(sizeBuff));
-			/*processingParams_t *threadParams = (processingParams_t*) malloc(sizeof(processingParams_t));
-			threadParams->headerSize = readHeader(sizeBuff);
-			threadParams->clientSocket = client;
-
-			pthread_create(&processingThread, NULL, &processingWrapper, &threadParams);*/
 		}
 	}
-
-	//pthread_join(processingThread, NULL);
 
 	printf("Client disconnected \n");
 	return 0;
@@ -175,6 +170,7 @@ int main(void)
 			s, sizeof(s));
 		printf("server: got connection from %s\n", s);
 
+		/* This way the receiver doesn't get bogged down with new sockets*/
 		pthread_create(&clientThread, NULL, &receiveData, &new_fd);
 
 	}

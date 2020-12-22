@@ -7,11 +7,7 @@
 #include <google/protobuf/io/zero_copy_stream_impl.h>
 #include "../Cuda/cudaProcess.h"
 
-typedef struct processingThreadParams {
-	int clientSocket;
-	int headerSize;
-} processingParams_t;
+#define HDR_SZ 4
 
 google::protobuf::uint64 readHeader(char *);
-void *processingWrapper(void* args);
 void readMessage(int ,google::protobuf::uint64);
