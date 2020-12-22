@@ -6,36 +6,13 @@
 
 
 HANDLE simSession;
-FILE* dataOut;
 SOCKET clientSocket;
-
-/*void logData(ObjectData* toLog) {
-    fprintf(dataOut,"Title: %s\n", toLog->szTitle);
-    fprintf(dataOut, "Absolute Time: %f seconds\n", toLog->dAbsoluteTime);
-    fprintf(dataOut, "Zulu Time: %f Seconds\n", toLog->dTime);
-    fprintf(dataOut, "Sim On Ground: %d \n", toLog->uSimOnGround);
-    fprintf(dataOut, "Altitude: %f Feet\n", toLog->dAltitude);
-    fprintf(dataOut, "Heading: %f Radians\n", toLog->dHeading);
-    fprintf(dataOut, "Speed: %f Knots\n", toLog->dSpeed);
-    fprintf(dataOut, "Vertical Speed: %f Feet Per Second\n", toLog->dVerticalSpeed);
-    fprintf(dataOut, "GPS ETA: %f Seconds\n", toLog->dGpsEta);
-    fprintf(dataOut, "Latitude: %f Degrees\n", toLog->dLatitude);
-    fprintf(dataOut, "Longitude: %f Degrees\n", toLog->dLongitude);
-    fprintf(dataOut, "Sim Time: %f Seconds\n", toLog->dSimTime);
-    fprintf(dataOut, "Temperature: %f Celsius\n", toLog->dTemperature);
-    fprintf(dataOut, "Air Pressure: %f Millibars\n", toLog->dPressure);
-    fprintf(dataOut, "Wind Velocity: %f Feet Per Second\n", toLog->dWindVelocity);
-    fprintf(dataOut, "Wind Direction: %f Degrees\n\n\n", toLog->dWindDirection);
-}*/
 
 DWORD WINAPI createProto(LPVOID lParam) {
     ObjectData* toConvert = (ObjectData*)lParam;
-    //fopen_s(&dataOut,"dataOut.txt", "a+");
-    //fprintf(dataOut, "Before serialiing \n");
-    //logData(toConvert);
     simConnect::simData convertedData;
     std::string toStr(toConvert->szTitle);
-
+    /* Fill in the proto object from our simconnect object */
     convertedData.set_sztitle(toStr);
     convertedData.set_dabsolutetime(toConvert->dAbsoluteTime);
     convertedData.set_dtime(toConvert->dTime);
@@ -54,21 +31,21 @@ DWORD WINAPI createProto(LPVOID lParam) {
     convertedData.set_dwinddirection(toConvert->dWindDirection);
 
     printf("Size after serializing is %ld\n", convertedData.ByteSizeLong());
-    long pktSize = convertedData.ByteSizeLong() + 4;
-    //fprintf(dataOut, "After serializing before socket size is %ld \n%s\n\n", convertedData.ByteSizeLong(),convertedData.DebugString().c_str());
+    /* Add HDR_SZ to pktSize since we're using MSG_PEEK to get the size of the packet */
+    long pktSize = convertedData.ByteSizeLong() + HDR_SZ;
+    /* Create a new packet */
     char* pkt = new char[pktSize];
+    /* Create the new output stream to place in our pkt */
     google::protobuf::io::ArrayOutputStream aos(pkt, pktSize);
     google::protobuf::io::CodedOutputStream* coded_pkt = new google::protobuf::io::CodedOutputStream(&aos);
+    /* Write the header to the start of the packet*/
     coded_pkt->WriteVarint64(convertedData.ByteSizeLong());
+    /* Write the data behind the header */
     convertedData.SerializeToCodedStream(coded_pkt);
-    /*std::string *strPkt = new std::string();
-    convertedData.SerializeToString(strPkt);
-    pkt = _strdup(strPkt->c_str());*/
-    //fprintf(dataOut, "pkt buffer is %s and size is %ld\n\n", pkt, convertedData.ByteSizeLong());
+    /* Send our created packet with the header */
     int iResult = send(clientSocket, pkt, pktSize, 0);
+    /* Show how many bytes we sent */
     printf("Sent bytes %d\n", iResult);
-    //fclose(dataOut);
-
     return 0;
 }
 
@@ -96,11 +73,6 @@ void CALLBACK MyDispatchProc(SIMCONNECT_RECV* pData, DWORD cbData, void* pContex
                     std::cout << "Received start event\n";
                     std::string * disptext = new std::string("Beggining log");
                     std::string disp = *disptext;
-                    fopen_s(&dataOut, "data.txt", "w");
-
-                    if (!dataOut) {
-                        std::cout << "Error opening out file\n";
-                    }
 
                     hr = SimConnect_RequestDataOnSimObject(simSession, USER_OBJECT_DATA, USER_OBJECT_DEF, SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD_SECOND);
                     if (hr != S_OK) {
@@ -183,14 +155,7 @@ void CALLBACK MyDispatchProc(SIMCONNECT_RECV* pData, DWORD cbData, void* pContex
                     DWORD threadID;
 
                     protoHandle = CreateThread(NULL, 0, createProto, (LPVOID)userData, 0, &threadID);
-              
-                    /*sprintf_s(sendbuff, "Data timestamp: %d:%d:%d\n", hours, minutes, seconds);
-                    int iResult = send(clientSocket, sendbuff, (int)strlen(sendbuff), 0);*/
-
                     std::cout << "Data timestamp: " << static_cast<int>(userData->dTime / 3600) + 00 << ":" << static_cast<int>(userData->dTime / 60  - 60) + 00 << ":" << static_cast<int>(fmod(userData->dTime, 60)) + 00 << "\n";
-                    //std::cout << "Send result to server: " << iResult << "\n";
-                    //logData(userData, dataOut);
-                    
                     break;
                 }
             }
@@ -202,11 +167,6 @@ void CALLBACK MyDispatchProc(SIMCONNECT_RECV* pData, DWORD cbData, void* pContex
             hr = SimConnect_Close(simSession);
             if (hr != S_OK) {
                 std::cout << "Error closing simconnect session\n";
-            }
-            
-            if (dataOut) {
-                fclose(dataOut);
-                dataOut = NULL;
             }
 
             exit(0);
