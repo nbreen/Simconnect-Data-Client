@@ -1,5 +1,32 @@
 Initial: ~1000 CPU page faults
 
+==9584== Profiling application: ./server
+==9584== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   44.80%  834.84us       712  1.1720us  1.1190us  8.1910us  [CUDA memcpy DtoD]
+                   35.35%  658.69us       178  3.7000us  3.5510us  9.3760us  cudaHandle(processedData*, double*)
+                   11.21%  208.95us       178  1.1730us  1.1200us  1.4400us  [CUDA memcpy DtoH]
+                    8.64%  161.08us       178     904ns     736ns  9.6640us  [CUDA memcpy HtoD]
+      API calls:   52.73%  222.56ms      1068  208.39us  26.120us  746.73us  cudaMemcpy
+                   33.97%  143.38ms      1068  134.25us  6.2150us  103.76ms  cudaMallocManaged
+                    8.72%  36.806ms       178  206.77us  66.487us  519.51us  cudaLaunchKernel
+                    3.73%  15.737ms       356  44.205us  9.4290us  114.74us  cudaFree
+                    0.66%  2.7696ms       178  15.559us  6.8450us  26.260us  cudaDeviceSynchronize
+                    0.14%  579.57us       194  2.9870us  1.0470us  87.365us  cuDeviceGetAttribute
+                    0.03%  146.10us         2  73.048us  71.442us  74.654us  cuDeviceTotalMem
+                    0.01%  47.278us         2  23.639us  19.484us  27.794us  cuDeviceGetName
+                    0.00%  6.6340us         2  3.3170us  2.6540us  3.9800us  cuDeviceGetPCIBusId
+                    0.00%  5.8660us         4  1.4660us  1.1170us  1.8860us  cuDeviceGet
+                    0.00%  4.3300us         3  1.4430us  1.0480us  1.8850us  cuDeviceGetCount
+                    0.00%  2.3740us         2  1.1870us  1.1170us  1.2570us  cuDeviceGetUuid
+
+==9584== Unified Memory profiling result:
+Device "GeForce GTX 680 (0)"
+   Count  Avg Size  Min Size  Max Size  Total Size  Total Time  Name
+     178  4.0000KB  4.0000KB  4.0000KB  712.0000KB  368.6080us  Host To Device
+    2701  26.254KB  4.0000KB  120.00KB  69.25000MB  12.17430ms  Device To Host
+Total CPU Page faults: 1106
+
 Improved:
 
 ==3800== Profiling application: ./server
