@@ -1,0 +1,24 @@
+Initial: ~1000 CPU page faults
+
+Improved:
+
+==3800== Profiling application: ./server
+==3800== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   88.15%  11.631ms       805  14.448us  2.6540us  54.480us  [CUDA memcpy HtoH]
+                   10.58%  1.3953ms       161  8.6660us  8.0330us  9.5370us  cudaHandle(processedData*, double*)
+                    1.27%  167.79us       161  1.0420us     992ns  1.2480us  [CUDA memcpy HtoD]
+      API calls:   60.91%  162.81ms       161  1.0112ms  197.55us  98.974ms  cudaMalloc
+                   12.15%  32.472ms       322  100.85us  3.0030us  302.75us  cudaFree
+                    9.93%  26.543ms       805  32.972us  5.9370us  373.52us  cudaMallocHost
+                    7.99%  21.365ms       805  26.540us  6.0070us  84.725us  cudaMemcpyAsync
+                    3.97%  10.611ms       161  65.907us  32.688us  115.26us  cudaLaunchKernel
+                    3.73%  9.9668ms       161  61.905us  16.622us  110.02us  cudaMemcpy
+                    0.92%  2.4537ms       161  15.240us  5.6570us  28.288us  cudaDeviceSynchronize
+                    0.29%  773.16us       194  3.9850us     908ns  121.95us  cuDeviceGetAttribute
+                    0.08%  226.36us         2  113.18us  107.21us  119.15us  cuDeviceTotalMem
+                    0.03%  69.144us         2  34.572us  26.121us  43.023us  cuDeviceGetName
+                    0.00%  8.3110us         2  4.1550us  4.0510us  4.2600us  cuDeviceGetPCIBusId
+                    0.00%  6.6360us         4  1.6590us  1.3970us  2.3050us  cuDeviceGet
+                    0.00%  5.2380us         3  1.7460us  1.3270us  2.1650us  cuDeviceGetCount
+                    0.00%  3.0030us         2  1.5010us  1.4670us  1.5360us  cuDeviceGetUuid
