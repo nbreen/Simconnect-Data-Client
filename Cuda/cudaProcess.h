@@ -1,6 +1,7 @@
 #include <string>
 #include <malloc.h>
 #include <iostream>
+#include <math_constants.h>
 #include "../Server/simconnectData.pb.h"
 
 #define N 15 // This is one less than the fields in proto since we omit sztitle for processing
@@ -22,5 +23,38 @@ enum fieldName {
     dWindVelocity = 13,
     dWindDirection = 14,
 };
+
+typedef struct hTime {
+    int hour;
+    int min;
+    int sec;
+} hTime_t;
+
+typedef struct absoluteTime {
+    int year;
+    int month;
+    int day;
+    int hour;
+    int min;
+    double sec;
+} absoluteTime_t;
+
+typedef struct processedData {
+    absoluteTime_t *absTime;
+    hTime_t *zulu;
+    bool onGround;
+    int altitude;
+    int heading;
+    int speed;
+    int verticalSpeed;
+    hTime_t *gpsEta;
+    double lat;
+    double longi;
+    hTime_t *simulationTime;
+    double temp;
+    double pressure;
+    int windVelo;
+    int windDir;
+} processedData_t;
 
 void cudaProcess(simConnect::simData);

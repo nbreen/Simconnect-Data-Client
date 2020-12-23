@@ -1,79 +1,142 @@
 #include "cudaProcess.h"
 
-void logToFile(simConnect::simData payload, double *convertedData, double *processedData ) {
+void logToFile(simConnect::simData payload, double *convertedData, processedData_t *processedData ) {
   FILE *output = fopen("out.txt", "a+");
   std::string  printString ("");
   
   fprintf(output, "Object sztitle: %s\n", payload.sztitle().c_str());
   
   for (int i = 0; i < N; i++ ) {
-    double toPrint;
-
     switch(i) {
       case dAbsoluteTime:
-        toPrint = convertedData[i];
-        printString = "Absolute time";
+        // processedData->absTime->year
+        // processedData->absTime->month
+        // processedData->absTime->day
+        // processedData->absTime->hour
+        // processedData->absTime->min
+        printString = "Absolute time Unprocessed: " + 
+                      std::to_string(convertedData[dAbsoluteTime]);
+        printString.append( " Processed: ");
+        printString += std::to_string(processedData->absTime->sec);
+        printString.append(" Seconds");
         break;
       case dTime:
-        toPrint = convertedData[i];
-        printString = "Zulu Time";
+        printString = "Zulu Time Unprocessed: " +
+                      std::to_string(convertedData[dTime]); 
+        printString.append(" Processed: ");
+        printString += std::to_string(processedData->zulu->hour);
+        printString.append(":");
+        printString += std::to_string(processedData->zulu->min); 
+        printString.append(":");
+        printString += std::to_string(processedData->zulu->sec);
         break;
-      case uSimOnGround:
-        toPrint = convertedData[i];
-        printString = "Sim On Ground";
+      case uSimOnGround: {
+        std::string onG;
+
+        if (processedData->onGround) {
+          onG = "True";
+        } else {
+          onG = "False";
+        }
+        printString = "Sim On Ground Unprocessed: " + 
+                      std::to_string(convertedData[uSimOnGround]);
+        printString.append(" Processed: ");
+        printString += onG;
         break;
+      }
       case dAltitude:
-        toPrint = convertedData[i];
-        printString = "Altitude";
+        printString = "Altitude Unprocessed: " +
+                      std::to_string(convertedData[dAltitude]); 
+        printString.append(" Processed: ");
+        printString += std::to_string(processedData->altitude);
+        printString.append(" Feet");
         break;
       case dHeading:
-        toPrint = convertedData[i];
-        printString = "Heading";
+        printString = "Heading Unprocessed: " +
+                      std::to_string(convertedData[dHeading]); 
+        printString.append(" Processed: ");
+        printString += std::to_string(processedData->heading); 
+        printString.append(" Degrees");
         break;
       case dSpeed:
-        toPrint = convertedData[i];
-        printString = "Speed";
+        printString = "Speed  Unprocessed: " +
+                      std::to_string(convertedData[dSpeed]);
+        printString.append(" Processed: ");
+        printString += std::to_string(processedData->speed); 
+        printString.append(" Knots");
         break;
       case dVerticalSpeed:
-        toPrint = convertedData[i];
-        printString = "Vertical Speed";
+        printString = "Vertical Speed Unprocessed: " +
+                      std::to_string(convertedData[dVerticalSpeed]); 
+        printString.append(" Processed: ");
+        printString += std::to_string(processedData->verticalSpeed); 
+        printString.append(" Feet Per Minute");
         break;
       case dGpsEta:
-        toPrint = convertedData[i];
-        printString = "GPS ETA";
+        printString = "GPS ETA  Unprocessed: " +
+                      std::to_string(convertedData[dGpsEta]); 
+        printString.append(" Processed: ");
+        printString += std::to_string(processedData->gpsEta->hour);
+        printString.append(":"); 
+        printString += std::to_string(processedData->gpsEta->min);
+        printString.append(":");
+        printString +=std::to_string(processedData->gpsEta->sec);
         break;
       case dLatitude:
-        toPrint = convertedData[i];
-        printString = "Latitude";
+        printString = "Latitude Unprocessed: " +
+                      std::to_string(convertedData[dLatitude]); 
+        printString.append(" Processed: ");
+        printString += std::to_string(processedData->lat);
+        printString.append(" Degrees");
         break;
       case dLongitude:
-        toPrint = convertedData[i];
-        printString = "Longitude";
+        printString = "Longitude Unprocessed: " +
+                      std::to_string(convertedData[dLongitude]); 
+        printString.append(" Processed: ");
+        printString += std::to_string(processedData->longi);
+        printString.append(" Degrees");
         break;
       case dSimTime:
-        toPrint = convertedData[i];
-        printString = "Sim time";
+        printString = "Sim time  Unprocessed: " +
+                      std::to_string(convertedData[dSimTime]); 
+        printString.append(" Processed: ");
+        printString += std::to_string(processedData->simulationTime->hour);
+        printString.append(":"); 
+        printString += std::to_string(processedData->simulationTime->min);
+        printString.append(":");
+        printString += std::to_string(processedData->simulationTime->sec);
         break;
       case dTemperature:
-        toPrint = convertedData[i];
-        printString = "Temperature";
+        printString = "Temperature Unprocessed: " +
+                      std::to_string(convertedData[dTemperature]);
+        printString.append(" Processed: ");
+        printString += std::to_string(processedData->temp);
+        printString.append(" Degrees Celsius");
         break;
       case dPressure:
-        toPrint = convertedData[i];
-        printString = "Air Pressure";
+        printString = "Air Pressure Unprocessed: " +
+                      std::to_string(convertedData[dPressure]);
+        printString.append(" Processed: ");
+        printString += std::to_string(processedData->pressure);
+        printString.append(" In Hg");
         break;
       case dWindVelocity:
-        toPrint = convertedData[i];
-        printString = "Wind Velocity";
+        printString = "Wind Velocity Unprocessed: " +
+                      std::to_string(convertedData[dWindVelocity]);
+        printString.append(" Processed: ");
+        printString += std::to_string(processedData->windVelo);
+        printString.append(" Knots");
         break;
       case dWindDirection:
-        toPrint = convertedData[i];
-        printString = "Wind Direction";
+        printString = "Wind Direction Unprocessed: " +
+                      std::to_string(convertedData[dWindDirection]);
+        printString.append(" Processed: ");
+        printString += std::to_string(processedData->windDir);
+        printString.append(" Degrees");
         break;
     }
 
-    fprintf(output, "Unprocessed %s %d: %f    ", printString.c_str(), i, toPrint);
-    fprintf(output, "processedData %d: %f \n", i, processedData[i]);
+    fprintf(output, "%s\n", printString.c_str());
   }
 
   fprintf(output, "\n\n");
@@ -136,69 +199,89 @@ double *toArray(simConnect::simData toConvert) {
   return convertedData;
 }
 
-__global__ void cudaHandle(double * processedData, double *toProcess) {
+__global__ void cudaHandle(processedData_t *processedData, double *toProcess) {
   /* Process each field differently */
   switch(blockIdx.x) {
     case dAbsoluteTime:
       /* Seconds since 12:00AM Jan. 1 0000 -> YYYY-MM-DD-HH-MM-SS */
+      //processedData->absTime->year
+      //processedData->absTime->month
+      //processedData->absTime->day
+      //processedData->absTime->hour
+      //processedData->absTime->min
+      processedData->absTime->sec = toProcess[dAbsoluteTime];
       
-      processedData[dAbsoluteTime] = toProcess[dAbsoluteTime];
       break;
     case dTime:
       /* Seconds -> HH-MM-SS */
-      processedData[dTime] = toProcess[dTime];
+      processedData->zulu->hour = toProcess[dTime] / 3600;
+      processedData->zulu->min = (toProcess[dTime] / 60) - (processedData->zulu->hour * 60) ;
+      processedData->zulu->sec = toProcess[dTime] - 60 - (processedData->zulu->hour * 3600) - (processedData->zulu->min * 60) ;
+      
       break;
-    case uSimOnGround:
+    case uSimOnGround: {
       /* int -> bool */
-      processedData[uSimOnGround] = toProcess[uSimOnGround];
+      int onground = __double2int_rn(toProcess[uSimOnGround]);
+      
+      if (onground == 1) {
+        processedData->onGround = true;
+      } else {
+        processedData->onGround = false;
+      }
+      
       break;
+    }
     case dAltitude:
       /* feet -> rounded feet */
-      processedData[dAltitude] = toProcess[dAltitude];
+      processedData->altitude = __double2int_rn(toProcess[dAltitude]);
       break;
     case dHeading:
       /* Radians -> degrees */
-      processedData[dHeading] = toProcess[dHeading];
+      processedData->heading = __double2int_rn(toProcess[dHeading] * (180/CUDART_PI_F));
       break;
     case dSpeed:
       /* Knots -> rounded knots */
-      processedData[dSpeed] = toProcess[dSpeed];
+      processedData->speed = __double2int_rn(toProcess[dSpeed]);
       break;
     case dVerticalSpeed:
       /* Feet per Sec -> Feet Per Min */
-      processedData[dVerticalSpeed] = toProcess[dVerticalSpeed];
+      processedData->verticalSpeed = __double2int_rn(toProcess[dVerticalSpeed] * 60);
       break;
     case dGpsEta:
       /* Seconds -> HH-MM-SS */
-      processedData[dGpsEta] = toProcess[dGpsEta];
+      processedData->gpsEta->hour = toProcess[dGpsEta] / 3600;
+      processedData->gpsEta->min = (toProcess[dGpsEta] / 60) - (processedData->gpsEta->hour * 60) ;
+      processedData->gpsEta->sec = toProcess[dGpsEta] - 60 - (processedData->gpsEta->hour * 3600) - (processedData->gpsEta->min * 60) ;
       break;
     case dLatitude:
       /* Leaving identity for the moment */
-      processedData[dLatitude] = toProcess[dLatitude];
+      processedData->lat = toProcess[dLatitude];
       break;
     case dLongitude:
       /* Leaving identity for the moment */
-      processedData[dLongitude] = toProcess[dLongitude];
+      processedData->longi = toProcess[dLongitude];
       break;
     case dSimTime:
       /* Seconds -> HH-MM-SS */
-      processedData[dSimTime] = toProcess[dSimTime];
+      processedData->simulationTime->hour = toProcess[dSimTime] / 3600;
+      processedData->simulationTime->min = (toProcess[dSimTime] / 60) - (processedData->simulationTime->hour * 60) ;
+      processedData->simulationTime->sec = toProcess[dSimTime] - 60 - (processedData->simulationTime->hour * 3600) - (processedData->simulationTime->min * 60) ;
       break;
     case dTemperature:
       /* Celsius -> rounded to tenths Celsius */
-      processedData[dTemperature] = toProcess[dTemperature];
+      processedData->temp = toProcess[dTemperature];
       break;
     case dPressure:
       /* Millibars -> in Hg */
-      processedData[dPressure] = toProcess[dPressure];
+      processedData->pressure = toProcess[dPressure] / 33.864;
       break;
     case dWindVelocity:
       /* Feet per Second -> Knots  */
-      processedData[dWindVelocity] = toProcess[dWindVelocity];
+      processedData->windVelo = __double2int_rn(toProcess[dWindVelocity] / 1.688);
       break;
     case dWindDirection:
       /* Degrees -> rounded degrees */
-      processedData[dWindDirection] = toProcess[dWindDirection];
+      processedData->windDir = __double2int_rn(toProcess[dWindDirection]);
       break;
   }
 }
@@ -206,22 +289,45 @@ __global__ void cudaHandle(double * processedData, double *toProcess) {
 void cudaProcess(simConnect::simData payload) {
   double *convertedData = toArray(payload);
   double *d_unprocessedData;
-  double *d_processedData;
-  double *processedData;
+  processedData_t *d_processedData;
+  absoluteTime_t *d_processedAbsolute;
+  hTime_t *d_processedZulu;
+  hTime_t *d_processedgpseta;
+  hTime_t *d_processedsimulationTime;
+  processedData_t  *processedData;
   int size = N * sizeof(double);
 
   /* Make space for our processed data */
-  processedData = (double *)malloc(size);
-  /* Make space on GPU memory for our object */
-  cudaMalloc((void **)&d_unprocessedData, size);
+  processedData = (processedData_t *) malloc(sizeof(processedData_t));
+  processedData->absTime = (absoluteTime_t *) malloc(sizeof(absoluteTime_t));
+  processedData->zulu = (hTime_t *) malloc(sizeof(hTime_t));
+  processedData->gpsEta = (hTime_t *) malloc(sizeof(hTime_t));
+  processedData->simulationTime = (hTime_t *) malloc(sizeof(hTime_t));
+  /* Make space on GPU memory for our array */
+  cudaMallocManaged((void **)&d_unprocessedData, size);
   /* Make space for processed data on the GPU */
-  cudaMalloc((void **)&d_processedData, size);
+  /* We use cudaMallocManaged so we can derefference 
+     the pointers on host or device                 */
+  cudaMallocManaged((void **)&d_processedData, sizeof(processedData_t));
+  cudaMallocManaged((void **)&d_processedAbsolute, sizeof(absoluteTime_t));
+  cudaMallocManaged((void **)&d_processedZulu, sizeof(hTime_t));
+  cudaMallocManaged((void **)&d_processedgpseta, sizeof(hTime_t));
+  cudaMallocManaged((void **)&d_processedsimulationTime, sizeof(hTime_t));
+  /* Assign pointers*/
+  d_processedData->absTime = d_processedAbsolute;
+  d_processedData->zulu = d_processedZulu;
+  d_processedData->gpsEta = d_processedgpseta;
+  d_processedData->simulationTime = d_processedsimulationTime;
   /* Copy our data from host to device */
   cudaMemcpy(d_unprocessedData, convertedData, size, cudaMemcpyHostToDevice);
   /* Launch kernel on the GPU to process the data we just copied */
   cudaHandle<<<N,1>>>(d_processedData ,d_unprocessedData);
   /* Copy our pocessed data back from device to host */
-  cudaMemcpy(processedData, d_processedData, size, cudaMemcpyDeviceToHost);
+  cudaMemcpy(processedData, d_processedData, sizeof(processedData_t), cudaMemcpyDeviceToHost);
+  cudaMemcpy(processedData->absTime, d_processedData->absTime, sizeof(absoluteTime_t), cudaMemcpyDeviceToHost);
+  cudaMemcpy(processedData->zulu, d_processedData->zulu, sizeof(hTime_t), cudaMemcpyDeviceToHost);
+  cudaMemcpy(processedData->gpsEta, d_processedData->gpsEta, sizeof(hTime_t), cudaMemcpyDeviceToHost);
+  cudaMemcpy(processedData->simulationTime, d_processedData->simulationTime, sizeof(hTime_t), cudaMemcpyDeviceToHost);
   /* Make sure any device jobs finish before we cleanup and exit */
   cudaDeviceSynchronize();
   /* Log our processed object to file */
