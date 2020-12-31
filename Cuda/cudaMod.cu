@@ -1,4 +1,4 @@
-#include "cudaPerfTest.h"
+#include "cudaMod.h"
 
 void logToFile(simConnect::simData payload, double *convertedData, processedData_t *processedData ) {
   FILE *output = fopen("out.txt", "a+");
@@ -343,9 +343,12 @@ void cudaProcess(simConnect::simData payload) {
   cudaSuccess(cudaFree(d_processedData));
 }
 
-void *gpuWorker(void *params) {
-    threadParams_t *workerParams = (threadParams_t *) params;
+/* Driver code */
+int main(void) {
     int counter = 0;
+    int gpuCount = -1;
+
+    cudaSuccess(cudaGetDeviceCount(&gpuCount));
 
     simConnect::simData convertedData;
     std::string toStr("F-22 Raptor - 525th Fighter Squadron");
@@ -367,36 +370,13 @@ void *gpuWorker(void *params) {
     convertedData.set_dwindvelocity(37.303146362304688);
     convertedData.set_dwinddirection(270);
 
-    cudaSuccess(cudaSetDevice(workerParams->GPU));
-    cudaSuccess(cudaGetLastError());
-
-    while (counter < 10) {
+    while (counter < 2) {
+        int device = counter % gpuCount;
+        cudaSuccess(cudaSetDevice(device));
         cudaProcess(convertedData);
+        counter++;
     }
 
-    return 0;
-}
 
-/* Driver code */
-int main(void) {
-    int device = -1;
-
-    cudaSuccess(cudaGetDeviceCount(&device));
-    printf("Device count is %d\n", device);
-
-    gpuThread_t *workers = (gpuThread_t *) malloc(sizeof(gpuThread_t) * device);
-
-    for (int i = 0; i < device; i++) {
-        workers[i].gpuParams = (threadParams_t *) malloc(sizeof(threadParams_t));
-        workers[i].gpuParams->GPU = i;
-        pthread_create(&workers[i].threadID, NULL, gpuWorker, (void *)workers[i].gpuParams);
-    }
-
-    for (int i = 0; i < device; i++) {
-        pthread_join(workers[i].threadID, NULL);
-        free(workers[i].gpuParams);
-    }
-
-    free(workers);
     return 0;
 }

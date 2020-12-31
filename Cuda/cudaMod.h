@@ -12,8 +12,7 @@ inline void gpuAssert(cudaError_t err, const char *file, int line, bool abort=tr
     if (err != cudaSuccess) {
         fprintf(stderr, "GPU Assert Error: %s %s %d\n", cudaGetErrorString(err), file, line);
         if (abort) {
-            fprintf(stderr, "Would abort\n");
-            //exit(err);
+            exit(err);
         }
     }
 }
@@ -68,15 +67,5 @@ typedef struct processedData {
     int windVelo;
     int windDir;
 } processedData_t;
-
-typedef struct threadParams {
-    int GPU;
-} threadParams_t;
-
-typedef struct gpuThread {
-    pthread_t threadID;
-    threadParams_t *gpuParams;
-} gpuThread_t;
-
 
 void cudaProcess(simConnect::simData);
