@@ -1,4 +1,4 @@
-CXX = g++
+CXX = /usr/bin/g++
 CXXFLAGS = -g -c
 PKGFLAGS = `pkg-config --cflags --libs protobuf`
 CPROTO = protoc
@@ -7,7 +7,7 @@ PROTODIR = ../Proto
 VSINCLUDEPATH = ../MyDataHarvester/Include
 VSSRCPATH = ../MyDataHarvester/MyDataHarvester
 CCUDA = nvcc
-CCUDAFLAGS = -g -c
+CCUDAFLAGS = -g -c -arch=sm_30 -std=c++11
 CUDADIR = ../Cuda
 
 all: server
@@ -31,8 +31,9 @@ cudaProcess: $(CUDADIR)/cudaProcess.cu
 	$(CCUDA) $(CCUDAFLAGS) $(CUDADIR)/cudaProcess.cu -o cudaProcess.o
 
 server: basicServer protoBuf protoHelper cudaProcess
-	$(CCUDA) -o server basicServer.o simconnectProto.o processProtobuff.o cudaProcess.o -lprotobuf
+	$(CCUDA) -arch=sm_30 -o server basicServer.o simconnectProto.o processProtobuff.o cudaProcess.o -lprotobuf
 	rm *.o
+	
 clean:
 	rm server
 

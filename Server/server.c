@@ -20,17 +20,13 @@
 #include "processProtobuff.h"
 
 
-#define PORT "5000"  // the port users will be connecting to
-#define BACKLOG 10	 // how many pending connections queue will hold
-#define BUFF_SIZE 512
-
-
 void *receiveData(void* clientSocket) {
 	char helloBuff[BUFF_SIZE];
 	int result;
 	int *sock = (int *)clientSocket;
 	int client = *sock;
 	char sizeBuff[4];
+	int pktCounter = 0;
 	pthread_t processingThread;
 
 	printf("Received client socket\n");
@@ -54,14 +50,17 @@ void *receiveData(void* clientSocket) {
 		}
 
 		if (result > 0) {
+			int gpu = pktCounter % gpuCount;;
 			printf("First read byte count is %d\n", result);
 			/* This isn't the most efficient as this 
 			 * will run all the way through cuda     */
-			readMessage(client, readHeader(sizeBuff));
+			readMessage(client, readHeader(sizeBuff), gpu);
+			pktCounter++;
 		}
 	}
 
-	printf("Client disconnected \n");
+	printf("Client disconnected. Processed %d packets\n", pktCounter);
+	exit(0);
 	return 0;
 }
 
@@ -153,9 +152,11 @@ int main(void)
 		exit(1);
 	}
 
+	gpuCount = wrapperGetCudaDevCount();
+
     inet_ntop(p->ai_family, get_in_addr((struct sockaddr *)p->ai_addr),
 			s, sizeof(s));
-	printf("server: listening on %s waiting for connections...\n", s);
+	printf("server: listening on %s with %d GPUs waiting for connections...\n", s, gpuCount);
 
 	while(1) {  // main accept() loop
 		sin_size = sizeof their_addr;

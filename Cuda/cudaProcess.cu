@@ -304,38 +304,53 @@ void cudaProcess(simConnect::simData payload) {
   processedData->gpsEta = (hTime_t *) malloc(sizeof(hTime_t));
   processedData->simulationTime = (hTime_t *) malloc(sizeof(hTime_t));
   /* Make space on GPU memory for our array */
-  cudaMallocManaged((void **)&d_unprocessedData, size);
+  cudaSuccess(cudaMallocManaged((void **)&d_unprocessedData, size));
   /* Make space for processed data on the GPU */
   /* We use cudaMallocManaged so we can derefference 
      the pointers on host or device                 */
-  cudaMallocManaged((void **)&d_processedData, sizeof(processedData_t));
-  cudaMallocManaged((void **)&d_processedAbsolute, sizeof(absoluteTime_t));
-  cudaMallocManaged((void **)&d_processedZulu, sizeof(hTime_t));
-  cudaMallocManaged((void **)&d_processedgpseta, sizeof(hTime_t));
-  cudaMallocManaged((void **)&d_processedsimulationTime, sizeof(hTime_t));
+  cudaSuccess(cudaMallocManaged((void **)&d_processedData, sizeof(processedData_t)));
+  cudaSuccess(cudaMallocManaged((void **)&d_processedAbsolute, sizeof(absoluteTime_t)));
+  cudaSuccess(cudaMallocManaged((void **)&d_processedZulu, sizeof(hTime_t)));
+  cudaSuccess(cudaMallocManaged((void **)&d_processedgpseta, sizeof(hTime_t)));
+  cudaSuccess(cudaMallocManaged((void **)&d_processedsimulationTime, sizeof(hTime_t)));
   /* Assign pointers*/
   d_processedData->absTime = d_processedAbsolute;
   d_processedData->zulu = d_processedZulu;
   d_processedData->gpsEta = d_processedgpseta;
   d_processedData->simulationTime = d_processedsimulationTime;
   /* Copy our data from host to device */
-  cudaMemcpy(d_unprocessedData, convertedData, size, cudaMemcpyHostToDevice);
+  cudaSuccess(cudaMemcpy(d_unprocessedData, convertedData, size, cudaMemcpyHostToDevice));
   /* Launch kernel on the GPU to process the data we just copied */
   cudaHandle<<<N,1>>>(d_processedData ,d_unprocessedData);
-  /* Copy our pocessed data back from device to host */
-  cudaMemcpy(processedData, d_processedData, sizeof(processedData_t), cudaMemcpyDeviceToHost);
-  cudaMemcpy(processedData->absTime, d_processedData->absTime, sizeof(absoluteTime_t), cudaMemcpyDeviceToHost);
-  cudaMemcpy(processedData->zulu, d_processedData->zulu, sizeof(hTime_t), cudaMemcpyDeviceToHost);
-  cudaMemcpy(processedData->gpsEta, d_processedData->gpsEta, sizeof(hTime_t), cudaMemcpyDeviceToHost);
-  cudaMemcpy(processedData->simulationTime, d_processedData->simulationTime, sizeof(hTime_t), cudaMemcpyDeviceToHost);
+  cudaSuccess(cudaGetLastError());
+  /* Synchronize here so we're not touching managed memory */
   /* Make sure any device jobs finish before we cleanup and exit */
-  cudaDeviceSynchronize();
+  cudaSuccess(cudaDeviceSynchronize());
   /* Log our processed object to file */
-  logToFile(payload, convertedData, processedData);
-
+  //logToFile(payload, convertedData, processedData); 
   /* Cleanup */
+  free(processedData->absTime);
+  free(processedData->zulu);
+  free(processedData->gpsEta);
+  free(processedData->simulationTime);
   free(processedData);
   free(convertedData);
-  cudaFree(d_processedData);
-  cudaFree(d_unprocessedData);
+  cudaSuccess(cudaFree(d_processedAbsolute));
+  cudaSuccess(cudaFree(d_processedZulu));
+  cudaSuccess(cudaFree(d_processedgpseta));
+  cudaSuccess(cudaFree(d_processedsimulationTime));
+  cudaSuccess(cudaFree(d_unprocessedData));
+  cudaSuccess(cudaFree(d_processedData));
+}
+
+void cudaSchedule(int device, simConnect::simData payload) {
+  cudaSuccess(cudaSetDevice(device));
+  cudaProcess(payload);
+}
+
+int wrapperGetCudaDevCount() {
+  int count = -1;
+  cudaSuccess(cudaGetDeviceCount(&count));
+
+  return count;
 }

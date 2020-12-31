@@ -15,7 +15,7 @@ google::protobuf::uint64 readHeader(char *buf) {
   return size;
 }
 
-void readMessage(int csock, google::protobuf::uint64 siz) {
+void readMessage(int csock, google::protobuf::uint64 siz, int gpu) {
   int bytecount;
   simConnect::simData payload;
   char buffer [siz + HDR_SZ];//size of the payload and hdr
@@ -39,5 +39,5 @@ void readMessage(int csock, google::protobuf::uint64 siz) {
   coded_input.PopLimit(msgLimit);
   //Log the result from the socket
   logToFile(payload);
-  cudaProcess(payload);
+  cudaSchedule(gpu, payload);
 }
