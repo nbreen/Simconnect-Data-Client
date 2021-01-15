@@ -18,7 +18,7 @@ to help curb the overhead. The best optimization here may be to flatten the stru
 Currently working on passing data from the main server instance to the API instance probably using threads and a global buffer or fork() and shared memory.
 Next will be displaying it on an Angular based website most likely using the OpenMap API as it has an aviation layer that will be usefull.
 
-#Credits
+# Credits
 This is my first project on my own, largely a hobby and learning experience for me. It started with an idea and I had no idea it would end up here.
 
 SimConnect SDK
