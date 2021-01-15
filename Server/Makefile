@@ -4,13 +4,19 @@ PKGFLAGS = `pkg-config --cflags --libs protobuf`
 CPROTO = protoc
 PROTOFLAGS = -I=$(PROTODIR) --cpp_out=.
 PROTODIR = ../Proto
-VSINCLUDEPATH = ../MyDataHarvester/Include
-VSSRCPATH = ../MyDataHarvester/MyDataHarvester
 CCUDA = nvcc
 CCUDAFLAGS = -g -c -arch=sm_30 -std=c++11
-CUDADIR = ../Cuda
+CUDADIR = ./Cuda
+BOOST_DIR = /usr/lib/x86_64-linux-gnu/cmake/Boost-1.71.0
+API_DIR = ./API
+CCBOOST = c++
+CCBOOSTFLAGS = -I $(BOOST_DIR)
+BOOST_LIBS = -lpthread -lboost_filesystem
 
 all: server
+
+api: $(API_DIR)/simDataAPI.cpp
+	$(CCBOOST) $(CCBOOSTFLAGS) $(API_DIR)/simDataAPI.cpp $(BOOST_LIBS) -o simDataAPI
 
 proto: $(PROTODIR)/simconnectData.proto
 	$(CPROTO) $(PROTOFLAGS) $(PROTODIR)/simconnectData.proto
