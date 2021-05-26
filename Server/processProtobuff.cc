@@ -11,7 +11,7 @@ google::protobuf::uint64 readHeader(char *buf) {
   google::protobuf::io::ArrayInputStream ais(buf, HDR_SZ);
   google::protobuf::io::CodedInputStream coded_input(&ais);
   coded_input.ReadVarint64(&size);//Decode the HDR and get the size
-  std::cout<<"size of payload is "<<size<<std::endl;
+  //std::cout<<"size of payload is "<<size<<std::endl;
   return size;
 }
 
@@ -23,7 +23,7 @@ void readMessage(int csock, google::protobuf::uint64 siz, int gpu) {
   if((bytecount = recv(csock, (void *)buffer, HDR_SZ + siz, MSG_WAITALL))== -1) {
                 fprintf(stderr, "Error receiving data %d\n", errno);
         }
-  std::cout<<"Second read byte count is "<<bytecount<<std::endl;
+  //std::cout<<"Second read byte count is "<<bytecount<<std::endl;
   //Assign ArrayInputStream with enough memory 
   google::protobuf::io::ArrayInputStream ais(buffer, siz + HDR_SZ);
   google::protobuf::io::CodedInputStream coded_input(&ais);
@@ -39,5 +39,9 @@ void readMessage(int csock, google::protobuf::uint64 siz, int gpu) {
   coded_input.PopLimit(msgLimit);
   //Log the result from the socket
   logToFile(payload);
-  cudaSchedule(gpu, payload);
+  processedData_t tmpData = cudaSchedule(gpu, payload); // Hold data temporarily here so mutex is not locked for duration of cuda processing
+  dataMutex.lock(); // Once cuda processing is done pass data to buffer for API
+  newData = tmpData;
+  aircraftTitle = payload.sztitle();
+  dataMutex.unlock();
 }

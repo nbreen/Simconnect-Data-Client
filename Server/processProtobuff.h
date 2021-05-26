@@ -1,4 +1,5 @@
 #include "simconnectData.pb.h"
+#include "processedData.h"
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <iostream>
@@ -11,5 +12,5 @@
 google::protobuf::uint64 readHeader(char *);
 void readMessage(int ,google::protobuf::uint64, int);
 
-extern void cudaSchedule(int, simConnect::simData);
+extern processedData_t cudaSchedule(int, simConnect::simData);
 extern int wrapperGetCudaDevCount();

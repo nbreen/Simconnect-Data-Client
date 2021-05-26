@@ -3,22 +3,6 @@
 */
 
 #include "server.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <errno.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netdb.h>
-#include <arpa/inet.h>
-#include <sys/wait.h>
-#include <signal.h>
-#include <pthread.h>
-#include "simconnectData.pb.h"
-#include "processProtobuff.h"
-
 
 void *receiveData(void* clientSocket) {
 	char helloBuff[BUFF_SIZE];
@@ -29,19 +13,19 @@ void *receiveData(void* clientSocket) {
 	int pktCounter = 0;
 	pthread_t processingThread;
 
-	printf("Received client socket\n");
+	//printf("Received client socket\n");
 
 	result = recv(client, helloBuff, BUFF_SIZE - 1, 0);
-	printf("From client: %s\n", helloBuff);
+	//printf("From client: %s\n", helloBuff);
 
 	result = send(client, "Hello world from server", sizeof("Hello world from server"), 0);
 
-	printf("Result of send is %d\n", result);
+	//printf("Result of send is %d\n", result);
 	printf("Entering receive loop\n");
 
 	while(1) {
 		result = recv(client, sizeBuff, 4, MSG_PEEK);
-		printf("Receive is %d\n", result);
+		//printf("Receive is %d\n", result);
 		if (result == -1) {
 			printf("Error receiving data with byteSize\n");
 			break;
@@ -51,7 +35,7 @@ void *receiveData(void* clientSocket) {
 
 		if (result > 0) {
 			int gpu = pktCounter % gpuCount;;
-			printf("First read byte count is %d\n", result);
+			//printf("First read byte count is %d\n", result);
 			/* This isn't the most efficient as this 
 			 * will run all the way through cuda     */
 			readMessage(client, readHeader(sizeBuff), gpu);
@@ -60,7 +44,6 @@ void *receiveData(void* clientSocket) {
 	}
 
 	printf("Client disconnected. Processed %d packets\n", pktCounter);
-	exit(0);
 	return 0;
 }
 
@@ -98,6 +81,7 @@ int main(void)
 	char s[INET6_ADDRSTRLEN];
 	int rv;
 	pthread_t clientThread;
+	pthread_t apiThread;
 
 	memset(&hints, 0, sizeof hints);
 	hints.ai_family = AF_UNSPEC;
@@ -154,9 +138,12 @@ int main(void)
 
 	gpuCount = wrapperGetCudaDevCount();
 
-    inet_ntop(p->ai_family, get_in_addr((struct sockaddr *)p->ai_addr),
-			s, sizeof(s));
-	printf("server: listening on %s with %d GPUs waiting for connections...\n", s, gpuCount);
+    /*inet_ntop(p->ai_family, get_in_addr(p->ai_addr),
+			s, sizeof(s));*/
+	printf("Server listening with %d GPUs waiting for connections...\n", gpuCount);
+	printf("Starting API.....\n");
+
+	pthread_create(&apiThread, NULL, &startAPI, NULL);
 
 	while(1) {  // main accept() loop
 		sin_size = sizeof their_addr;

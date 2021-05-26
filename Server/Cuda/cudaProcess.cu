@@ -286,9 +286,14 @@ __global__ void cudaHandle(processedData_t *processedData, double *toProcess) {
   }
 }
 
-void cudaProcess(simConnect::simData payload) {
+processedData_t cudaProcess(simConnect::simData payload) {
   double *convertedData = toArray(payload);
   double *d_unprocessedData;
+  processedData_t ret;
+  ret.absTime = (absoluteTime_t *) malloc(sizeof(absoluteTime_t));
+  ret.zulu = (hTime_t *) malloc(sizeof(hTime_t));
+  ret.gpsEta = (hTime_t *) malloc(sizeof(hTime_t));
+  ret.simulationTime = (hTime_t *) malloc(sizeof(hTime_t));
   processedData_t *d_processedData;
   absoluteTime_t *d_processedAbsolute;
   hTime_t *d_processedZulu;
@@ -327,7 +332,25 @@ void cudaProcess(simConnect::simData payload) {
   /* Make sure any device jobs finish before we cleanup and exit */
   cudaSuccess(cudaDeviceSynchronize());
   /* Log our processed object to file */
-  logToFile(payload, convertedData, d_processedData); 
+  logToFile(payload, convertedData, d_processedData);
+  /* Copy to the object we're returning so we can free everything */
+  memcpy(ret.absTime, d_processedAbsolute, sizeof(absoluteTime_t));
+  memcpy(ret.zulu, d_processedZulu, sizeof(hTime_t));
+  memcpy(ret.gpsEta, d_processedgpseta, sizeof(hTime_t));
+  memcpy(ret.simulationTime, d_processedsimulationTime, sizeof(hTime_t));
+  ret.lat = d_processedData->lat;
+  ret.lat = d_processedData->lat;
+  ret.longi = d_processedData->longi;
+  ret.temp = d_processedData->temp;
+  ret.pressure = d_processedData->pressure;
+  ret.altitude = d_processedData->altitude;
+  ret.heading = d_processedData->heading;
+  ret.speed = d_processedData->speed;
+  ret.verticalSpeed = d_processedData->verticalSpeed;
+  ret.windDir = d_processedData->windDir;
+  ret.windVelo = d_processedData->windVelo;
+  ret.onGround = d_processedData->onGround;
+
   /* Cleanup */
   free(processedData->absTime);
   free(processedData->zulu);
@@ -341,11 +364,13 @@ void cudaProcess(simConnect::simData payload) {
   cudaSuccess(cudaFree(d_processedsimulationTime));
   cudaSuccess(cudaFree(d_unprocessedData));
   cudaSuccess(cudaFree(d_processedData));
+
+  return ret;
 }
 
-void cudaSchedule(int device, simConnect::simData payload) {
+processedData_t cudaSchedule(int device, simConnect::simData payload) {
   cudaSuccess(cudaSetDevice(device));
-  cudaProcess(payload);
+  return cudaProcess(payload);
 }
 
 int wrapperGetCudaDevCount() {

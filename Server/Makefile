@@ -16,7 +16,7 @@ BOOST_LIBS = -lpthread -lboost_filesystem
 all: server
 
 api: $(API_DIR)/simDataAPI.cpp
-	$(CCBOOST) $(CCBOOSTFLAGS) $(API_DIR)/simDataAPI.cpp $(BOOST_LIBS) -o simDataAPI
+	$(CCBOOST) $(CXXFLAGS) $(API_DIR)/simDataAPI.cpp -o simDataAPI.o
 
 proto: $(PROTODIR)/simconnectData.proto
 	$(CPROTO) $(PROTOFLAGS) $(PROTODIR)/simconnectData.proto
@@ -36,8 +36,8 @@ protoHelper: processProtobuff.cc
 cudaProcess: $(CUDADIR)/cudaProcess.cu
 	$(CCUDA) $(CCUDAFLAGS) $(CUDADIR)/cudaProcess.cu -o cudaProcess.o
 
-server: basicServer protoBuf protoHelper cudaProcess
-	$(CCUDA) -arch=sm_30 -o server basicServer.o simconnectProto.o processProtobuff.o cudaProcess.o -lprotobuf
+server: basicServer protoBuf protoHelper cudaProcess api
+	$(CCUDA) -arch=sm_30 $(CCBOOSTFLAGS) -o server simDataAPI.o basicServer.o simconnectProto.o processProtobuff.o cudaProcess.o -lprotobuf $(BOOST_LIBS)
 	rm *.o
 	
 clean:

@@ -1,17 +1,5 @@
-#include "client_http.hpp"
-#include "server_http.hpp"
-#include <future>
 
-// Added for the json-example
-#define BOOST_SPIRIT_THREADSAFE
-#include <boost/property_tree/json_parser.hpp>
-#include <boost/property_tree/ptree.hpp>
-
-// Added for the default_resource example
-#include <algorithm>
-#include <boost/filesystem.hpp> //Have to compile this seperately
-#include <fstream>
-#include <vector>
+#include "../API.h"
 
 using namespace std;
 // Added for the json-example:
@@ -20,34 +8,86 @@ using namespace boost::property_tree;
 using HttpServer = SimpleWeb::Server<SimpleWeb::HTTP>;
 using HttpClient = SimpleWeb::Client<SimpleWeb::HTTP>;
 
-int main() {
-  // HTTP-server at port 8080 using 1 thread
+
+std::string putAbsTime(absoluteTime_t *absTime){
+  //Come back and fix this after I decide what to do here
+  std::string ret(std::to_string(absTime->sec));
+
+  return ret;
+}
+
+std::string putHTime(hTime_t *hTime){
+  std::string ret(std::to_string(hTime->hour));
+  ret.append(std::to_string(hTime->min));
+  ret.append(std::to_string(hTime->sec));
+
+  return ret;
+}
+
+/* Get's data from sim and fills ptree for JSON output*/
+ptree getNewSimData() {
+  ptree ret;
+  processedData_t fromSim;
+
+  dataMutex.lock();
+  fromSim = newData;
+  ret.put("aircraftTitle", aircraftTitle);
+  dataMutex.unlock();
+
+  ret.put("absoluteTime", putAbsTime(fromSim.absTime));
+  ret.put("time", putHTime(fromSim.zulu));
+  ret.put("gpsEta", putHTime(fromSim.gpsEta));
+  ret.put("simTime", putHTime(fromSim.simulationTime));
+  ret.put("lat", fromSim.lat);
+  ret.put("long", fromSim.longi);
+  ret.put("temp", fromSim.temp);
+  ret.put("press", fromSim.pressure);
+  ret.put("altitude", fromSim.altitude);
+  ret.put("heading", fromSim.heading);
+  ret.put("speed", fromSim.speed);
+  ret.put("verticalSpeed", fromSim.verticalSpeed);
+  ret.put("windVelocity", fromSim.windVelo);
+  ret.put("windDirection", fromSim.windDir);
+  ret.put("onGround", fromSim.onGround);
+
+  return ret;
+}
+
+void *startAPI(void* args) {
+  // HTTP-server at port 7378 using 1 thread
   // Unless you do more heavy non-threaded processing in the resources,
   // 1 thread is usually faster than several threads
   HttpServer server;
-  server.config.port = 5000;
+  server.config.port = API_PORT;
 
   server.resource["^/data$"]["GET"] = [](shared_ptr<HttpServer::Response> response, shared_ptr<HttpServer::Request> request) {
-    printf("Request for simData\n");
+    printf("API Request for simData\n");
+
     try {
       ptree pt;
       stringstream outStream;
-      pt.put("aircraftTitle", "F22");
-      pt.put("absoluteTime", "918249");
-      pt.put("time", "12345");
-      pt.put("onGround", "false");
-      pt.put("altitude", "4000");
-      pt.put("heading", "360");
-      pt.put("speed", "250");
-      pt.put("verticalSpeed", "500");
-      pt.put("gpsEta", "9128374");
-      pt.put("lat", "-39");
-      pt.put("long","38");
-      pt.put("simTime", "13");
-      pt.put("temp", "20");
-      pt.put("press", "0.00");
-      pt.put("windVelocity", "14");
-      pt.put("windDirection", "360");
+
+      if (!DEBUG) {
+        pt = getNewSimData();
+      } else {
+        pt.put("aircraftTitle", "F22");
+        pt.put("absoluteTime", "918249");
+        pt.put("time", "12345");
+        pt.put("onGround", "false");
+        pt.put("altitude", "4000");
+        pt.put("heading", "360");
+        pt.put("speed", "250");
+        pt.put("verticalSpeed", "500");
+        pt.put("gpsEta", "9128374");
+        pt.put("lat", "-39");
+        pt.put("long","38");
+        pt.put("simTime", "13");
+        pt.put("temp", "20");
+        pt.put("press", "0.00");
+        pt.put("windVelocity", "14");
+        pt.put("windDirection", "360");
+      }
+     
       write_json(outStream, pt, true);
 
       *response << "HTTP/1.1 200 OK\r\n"
@@ -64,7 +104,7 @@ int main() {
   // GET-example for the path /info
   // Responds with request-information
   server.resource["^/info$"]["GET"] = [](shared_ptr<HttpServer::Response> response, shared_ptr<HttpServer::Request> request) {
-    printf("Request for info\n");
+    printf("API Request for info\n");
     stringstream stream;
     stream << "<h1>Request from " << request->remote_endpoint().address().to_string() << ":" << request->remote_endpoint().port() << "</h1>";
 
@@ -87,7 +127,7 @@ int main() {
   // Default file: index.html
   // Can for instance be used to retrieve an HTML 5 client that uses REST-resources on this server
   server.default_resource["GET"] = [](shared_ptr<HttpServer::Response> response, shared_ptr<HttpServer::Request> request) {
-    printf("Default Get\n");
+    printf("API Default Get\n");
     try {
       auto web_root_path = boost::filesystem::canonical("web");
       auto path = boost::filesystem::canonical(web_root_path / request->path);
@@ -157,8 +197,10 @@ int main() {
       server_port.set_value(port);
     });
   });
-  cout << "Server listening on port " << server_port.get_future().get() << endl
+  cout << "API listening on port " << server_port.get_future().get() << endl
        << endl;
 
   server_thread.join();
+
+  return 0;
 }
