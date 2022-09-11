@@ -21,9 +21,6 @@
     <ClCompile Include="..\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="simconnectData.pb.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\MyDataHarvester.h">
@@ -32,7 +29,7 @@
     <ClInclude Include="..\Include\SimConnect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\simconnectData.pb.h">
+    <ClInclude Include="..\..\Non-Proto\MessageDef.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,6 +2,7 @@
 #include "MyDataHarvester.h"
 
 #define PORT "5000"
+#define ADDRESS "localhost"
 
 bool connectedToSim = false;
 
@@ -23,7 +24,7 @@ SOCKET initSocket() {
 		return 1;
 	}
 
-	iResult = getaddrinfo("apollo", PORT, &hints, &result);
+	iResult = getaddrinfo(ADDRESS, PORT, &hints, &result);
 	if (iResult != 0) {
 		printf("getaddrinfo failed!\n");
 		WSACleanup();

@@ -2,12 +2,48 @@
 //
 
 #include <MyDataHarvester.h>
-#include "simconnectData.pb.h"
+#include "../../Non-Proto/MessageDef.h"
 
 
 HANDLE simSession;
 SOCKET clientSocket;
 
+#if !PROTO
+DWORD WINAPI createPacket(LPVOID lParam) {
+    ObjectData* toConvert = (ObjectData*)lParam;
+    SimData_t newSimData;
+    char outBuff[sizeof(newSimData)] = {};
+
+    // Copy from Object data to our struct
+    newSimData.szTitle = std::string(toConvert->szTitle);
+    newSimData.dAbsoluteTime = toConvert->dAbsoluteTime;
+    newSimData.dTime = toConvert->dTime;
+    newSimData.usimOnGround = toConvert->uSimOnGround;
+    newSimData.dAltitude = toConvert->dAltitude;
+    newSimData.dHeading = toConvert->dHeading;
+    newSimData.dSpeed = toConvert->dSpeed;
+    newSimData.dVerticalSpeed = toConvert->dVerticalSpeed;
+    newSimData.dGpsEta = toConvert->dGpsEta;
+    newSimData.dLatitude = toConvert->dLatitude;
+    newSimData.dLongitude = toConvert->dLongitude;
+    newSimData.dSimTime = toConvert->dSimTime;
+    newSimData.dTemperature = toConvert->dTemperature;
+    newSimData.dAirPressure = toConvert->dPressure;
+    newSimData.dWindVelocity = toConvert->dWindVelocity;
+    newSimData.dWindDirection = toConvert->dWindDirection;
+
+    // Serialize into our char array
+    newSimData.Serialize(outBuff);
+    printf("Size after serializing is %ld\n", sizeof(newSimData));
+
+    //Send our packet
+    int iResult = send(clientSocket, outBuff, sizeof(newSimData), 0);
+    printf("Sent bytes %d\n", iResult);
+    return 0;
+}
+#endif
+
+#if PROTO
 DWORD WINAPI createProto(LPVOID lParam) {
     ObjectData* toConvert = (ObjectData*)lParam;
     simConnect::simData convertedData;
@@ -48,6 +84,7 @@ DWORD WINAPI createProto(LPVOID lParam) {
     printf("Sent bytes %d\n", iResult);
     return 0;
 }
+#endif
 
 void CALLBACK MyDispatchProc(SIMCONNECT_RECV* pData, DWORD cbData, void* pContext) {
     HRESULT hr;
@@ -151,10 +188,14 @@ void CALLBACK MyDispatchProc(SIMCONNECT_RECV* pData, DWORD cbData, void* pContex
                     int minutes = static_cast<int>(userData->dTime / 60);
                     int seconds = static_cast<int>(fmod(userData->dTime, 60));
                     char sendbuff[BUFF_LEN];
-                    HANDLE protoHandle;
+                    HANDLE processingHandle;
                     DWORD threadID;
 
-                    protoHandle = CreateThread(NULL, 0, createProto, (LPVOID)userData, 0, &threadID);
+#if PROTO
+                    processingHandle = CreateThread(NULL, 0, createProto, (LPVOID)userData, 0, &threadID);
+#else
+                    processingHandle = CreateThread(NULL, 0, createPacket, (LPVOID)userData, 0, &threadID);
+#endif
                     std::cout << "Data timestamp: " << static_cast<int>(userData->dTime / 3600) + 00 << ":" << static_cast<int>(userData->dTime / 60  - 60) + 00 << ":" << static_cast<int>(fmod(userData->dTime, 60)) + 00 << "\n";
                     break;
                 }

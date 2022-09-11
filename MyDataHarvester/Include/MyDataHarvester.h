@@ -20,6 +20,8 @@
 #define BUFF_LEN 512
 #define HDR_SZ 4
 
+#define PROTO 0
+
 enum EVENT_ID {
     START_CLIENT_APPLICATION,
     STOP_CLIENT_APPLICATION,
